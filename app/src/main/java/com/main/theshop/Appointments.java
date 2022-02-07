@@ -1,18 +1,21 @@
 package com.main.theshop;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Appointments {
     private String cutType;
     private Date scheduledDate;
     private Boolean isPaid;
     private Boolean isComplete;
+    private UUID cutUUID;
 
     public void Appointments(String cutType, Date scheduledDate, Boolean isComplete, Boolean isPaid) {
         this.cutType = cutType;
         this.scheduledDate = scheduledDate;
         this.isComplete = isComplete;
         this.isPaid = isPaid;
+        this.cutUUID = UUID.randomUUID();
     }
 
     public String getCutType() {
@@ -45,5 +48,9 @@ public class Appointments {
 
     public void setPaid(Boolean paid) {
         isPaid = paid;
+    }
+
+    public UUID getCutUUID() {
+        return cutUUID;
     }
 }
