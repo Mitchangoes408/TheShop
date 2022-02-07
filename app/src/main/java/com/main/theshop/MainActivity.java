@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile);
+        setContentView(R.layout.login);
 
         submitButton = (Button)findViewById(R.id.login_button);
         cancelButton = (Button)findViewById(R.id.cancel_button);
