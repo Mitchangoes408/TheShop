@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //verify with database that login information is valid then bring to HOMEPAGE
 
             }
         });
@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //create user
-                User newUser = new User(username.getText().toString(), password.getText().toString(), true);
+                //pop up form for: USERNAME, PASSWORD, NAME, PHONE, EMAIL
+
 
                 //add user to database
             }
