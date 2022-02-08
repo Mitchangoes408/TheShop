@@ -10,8 +10,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="75dp"
-        tools:layout_editor_absoluteY="-43dp">
+        tools:layout_editor_absoluteX="104dp"
+        tools:layout_editor_absoluteY="155dp">
 
         <TextView
             android:id="@+id/login_screen"
@@ -24,13 +24,16 @@
             android:id="@+id/username_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username" />
+            android:hint="Username"
+            android:lines="1"/>
 
         <EditText
             android:id="@+id/password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password" />
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:lines="1"/>
 
         <Button
             android:id="@+id/login_button"
@@ -59,17 +62,17 @@
                 android:id="@+id/username_reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:padding="10dp"
-                android:text="Forgot Username?"
-                android:clickable="true" />
+                android:text="Forgot Username?" />
 
             <TextView
                 android:id="@+id/password_reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:padding="10dp"
-                android:text="Forgot Password?"
-                android:clickable="true" />
+                android:text="Forgot Password?" />
 
         </LinearLayout>
 

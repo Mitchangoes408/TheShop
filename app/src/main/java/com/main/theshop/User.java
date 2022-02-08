@@ -3,10 +3,10 @@ package com.main.theshop;
 import java.util.UUID;
 
 public class User {
-    private String mUserName;
+    private String mUserName, fullName;
     private String mPassword;
     private UUID id;
-    private boolean isClient;
+    private Boolean isClient;
 
     public User(String userName, String password, boolean userType) {
         this.mUserName = userName;
