@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Open up a form to create new user
+
+
                 //create user
                 User newUser = new User(username.getText().toString(), password.getText().toString(), true);
 
