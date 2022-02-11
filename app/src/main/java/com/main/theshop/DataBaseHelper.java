@@ -19,6 +19,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String USERS_COLUMN_FULLNAME = "name";
     public static final String USERS_COLUMN_EMAIL = "email";
     public static final String USERS_COLUMN_NUMBER = "number";
+    public static final String USERS_COLUMN_CLIENT = "isClient";
     private HashMap hp;
 
     public DataBaseHelper(Context context){
@@ -39,7 +40,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    public boolean insertUser (String username, String password, String fullName, String email, String phoneNumber) {
+    public boolean insertUser (String username, String password, String fullName, String email, String phoneNumber, Boolean isClient) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", username);
@@ -47,6 +48,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put("name", fullName);
         contentValues.put("email", email);
         contentValues.put("number", phoneNumber);
+        contentValues.put("isClient", isClient);
         database.insert("users", null, contentValues);
         return true;
     }
@@ -72,7 +74,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public Integer deleteContact(Integer id) {
+    public Integer deleteUser(Integer id) {
         SQLiteDatabase database = this.getWritableDatabase();
         return database.delete("contacts",
                 "id = ? ",
