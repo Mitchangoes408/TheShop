@@ -57,5 +57,5 @@ public class CutPagerActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_CUT_ID, cutId);
         return intent;
     }
-    )
+
 }

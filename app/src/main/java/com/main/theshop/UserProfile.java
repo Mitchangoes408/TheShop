@@ -49,7 +49,7 @@ public class UserProfile extends Fragment {
         private ImageView mCutsView;
         private Cuts mCut;
 
-        public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
+        public CutsHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.profile_cut_item, parent, false));
             mCutsView = (ImageView)itemView.findViewById(R.id.cut_image);
             itemView.setOnClickListener(this);
@@ -70,6 +70,7 @@ public class UserProfile extends Fragment {
 
     private class CutsAdapter extends  RecyclerView.Adapter<CutsHolder> {
         List<Cuts> mCuts;
+
         public CutsAdapter(List<Cuts> cuts) {
             mCuts = cuts;
         }
