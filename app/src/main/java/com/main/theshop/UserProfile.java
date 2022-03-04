@@ -6,7 +6,9 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,25 +17,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class UserProfile extends Fragment {
+    private ImageView mImageView;
+    private TextView mTextView;
     private RecyclerView mCutsRecycler;
     private CutsAdapter mAdapter;
-
-    @Override
-    public void onSaveInstance(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
+    DataBaseHelper myDb;
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+        //myDb = new DataBaseHelper(this.getContext());
         View view = inflater.inflate(
                 R.layout.profile, container, false);
+
+        mTextView = (TextView) view.findViewById(R.id.profile_text);
+        mImageView = (ImageView)view.findViewById(R.id.profile_image);
 
         mCutsRecycler = (RecyclerView)view.findViewById(R.id.cuts_recycler_view);
         mCutsRecycler.setLayoutManager(
@@ -41,9 +39,13 @@ public class UserProfile extends Fragment {
 
         updateUI();
 
+
+
         return view;
 
     }
+
+
 
     public void updateUI() {
         Shop theShop = Shop.get(getActivity());
@@ -115,6 +117,9 @@ public class UserProfile extends Fragment {
         public void setCuts(List<Cuts> cuts) {
             mCuts = cuts;
         }
-
     }
+
+
+
+
 }

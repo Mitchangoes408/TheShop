@@ -10,36 +10,40 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import database.CutsDbSchema.CutsTable;
+
 public class DataBaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "TheShop.db";
-    public static final String USERS_TABLE_NAME = "users";
-    public static final String USERS_COLUMN_ID = "id";
-    public static final String USERS_COLUMN_USERNAME = "username";
-    public static final String USERS_COLUMN_PASSWORD = "password";
-    public static final String USERS_COLUMN_FULLNAME = "name";
-    public static final String USERS_COLUMN_EMAIL = "email";
-    public static final String USERS_COLUMN_NUMBER = "number";
-    public static final String USERS_COLUMN_CLIENT = "isClient";
-    private HashMap hp;
+    private static final int VERSION = 1;
+    public static final String DATABASE_NAME = "theshop.db";
+
+
 
     public DataBaseHelper(Context context){
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, VERSION);
+        //SQLiteDatabase db = this.getWritableDatabase();
     }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL(
-                "create table users " +
-                        " (id integeger primary key, username text, password text) "
+        database.execSQL("CREATE TABLE " + CutsTable.NAME +
+                "(" + "_id integer PRIMARY KEY AUTOINCREMENT," +
+                CutsTable.Cols.UUID + ", " +
+                CutsTable.Cols.TITLE + ", " +
+                CutsTable.Cols.DATE + ")"
         );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-        database.execSQL("DROP TABLE IF EXISTS users");
-        onCreate(database);
-    }
 
+        database.execSQL("DROP TABLE IF EXISTS " + "cuts");
+        onCreate(database);
+
+
+
+
+    }
+    /*
     public boolean insertUser (String username, String password, String fullName, String email, String phoneNumber, Boolean isClient) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -94,4 +98,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         return array_list;
     }
+
+     */
+
+
 }
