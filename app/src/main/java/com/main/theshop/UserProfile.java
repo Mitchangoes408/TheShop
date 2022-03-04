@@ -36,11 +36,31 @@ public class UserProfile extends Fragment {
                 R.layout.profile, container, false);
 
         mCutsRecycler = (RecyclerView)view.findViewById(R.id.cuts_recycler_view);
-        mCutsRecycler.setLayoutManager(new GridLayoutManager(getActivity()));
+        mCutsRecycler.setLayoutManager(
+                new GridLayoutManager(getActivity(), 3));
 
+        updateUI();
 
         return view;
 
+    }
+
+    public void updateUI() {
+        Shop theShop = Shop.get(getActivity());
+        List<Cuts> cuts = theShop.getCuts();
+        if(mAdapter == null) {
+            mAdapter = new CutsAdapter(cuts);
+            mCutsRecycler.setAdapter(mAdapter);
+
+        }
+        else
+            mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
     }
 
 
