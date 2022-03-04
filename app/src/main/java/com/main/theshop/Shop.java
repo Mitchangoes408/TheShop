@@ -39,21 +39,53 @@ public class Shop {
         String uuidString = cuts.getmId().toString();
         ContentValues values = getContentValues(cuts);
 
-        //mDatabase.update()
+        mDatabase.update(
+                CutsDbSchema.CutsTable.Cols.TITLE,
+                values,
+                CutsDbSchema.CutsTable.Cols.UUID + " = ?", new String[] { uuidString }
+        );
     }
 
     public List<Cuts> getCuts() {
         List<Cuts> cuts = new ArrayList<>();
 
+        CutsCursorWrapper cursor = queryCuts(null, null);
+
+        try {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                cuts.add(cursor.getCut());
+                cursor.moveToNext();
+            }
+        }
+        finally {
+            {
+                cursor.close();
+            }
+        }
+
         return cuts;
     }
 
-    /*
-    public Cuts getCut(UUID id) {
 
+    public Cuts getCut(UUID id) {
+        CutsCursorWrapper cursor = queryCuts(CutsDbSchema.CutsTable.Cols.UUID + " = ?",
+                new String[] { id.toString() }
+                );
+
+        try {
+            if(cursor.getCount() == 0)
+                return null;
+
+            cursor.moveToFirst();
+            return cursor.getCut();
+        }
+        finally {
+            cursor.close();
+        }
     }
 
-     */
+
 
     public File getPhotoFile(Cuts cut) {
         File filesDir = mContext.getFilesDir();

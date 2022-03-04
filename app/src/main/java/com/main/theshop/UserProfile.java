@@ -1,5 +1,6 @@
 package com.main.theshop;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ public class UserProfile extends Fragment {
 
     private class CutsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mCutsView;
+        private Cuts mCut;
 
         public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.profile_cut_item, parent, false));
@@ -53,21 +55,17 @@ public class UserProfile extends Fragment {
             itemView.setOnClickListener(this);
         }
 
-        /*
-        BIND ITEM TO DATA
-        public void bind()
-
-         */
-
-        /*
-        NEW INTENT FOR CLICKING ON IMAGE
-            ENLARGING IMAGE SHOWING CUT DETAILS
-        @Override
-        public void onClick(View view) {
-            Intent intent =
+        //NEEDS WORK FOR BINDING DATA
+        public void bind(Cuts cut) {
+            mCut = cut;
         }
 
-         */
+        @Override
+        public void onClick(View view) {
+            Intent intent = CutPagerActivity.newIntent(
+                    getActivity(), mCut.getmId());
+            startActivity(intent);
+        }
     }
 
     private class CutsAdapter extends  RecyclerView.Adapter<CutsHolder> {
@@ -84,10 +82,8 @@ public class UserProfile extends Fragment {
 
         @Override
         public void onBindViewHolder(CutsHolder holder, int position) {
-            /*
             Cuts cut = mCuts.get(position);
             holder.bind(cut);
-             */
         }
 
         @Override
