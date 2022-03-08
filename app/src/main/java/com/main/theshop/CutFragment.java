@@ -2,10 +2,13 @@ package com.main.theshop;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -19,6 +22,10 @@ public class CutFragment extends Fragment {
     private static final int REQUEST_PHOTO = 1;
 
     private Cuts mCut;
+
+    //view fields
+    private ImageView cutImage;
+    private TextView cutText;
 
     private File mCutPhotoFile;
 
@@ -48,14 +55,24 @@ public class CutFragment extends Fragment {
 
     /*****************************
      IMAGE POPUP SCREEN ONCE IMAGE IN PROFILE IS CLICKED
+        TEST WITH: ADD BUTTON PRESSED
+     */
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(
+                R.layout.fragment_cut,
+                container,
+                false);
 
+        cutImage = (ImageView)v.findViewById(R.id.cut_image);
+        cutText = (TextView)v.findViewById(R.id.cut_description);
+
+        return v;
     }
 
-     */
+
 
     public static CutFragment newInstance(UUID cutId) {
         Bundle args = new Bundle();

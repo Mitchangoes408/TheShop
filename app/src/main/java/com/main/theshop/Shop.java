@@ -32,15 +32,18 @@ public class Shop {
 
     public void addCut(Cuts cut) {
         ContentValues values = getContentValues(cut);
-        //mDatabase.insert
+        mDatabase.insert(CutsDbSchema.CutsTable.NAME, null, values);
     }
 
-    public void updateCut(Cuts cuts) {
-        String uuidString = cuts.getmId().toString();
-        ContentValues values = getContentValues(cuts);
+    public void updateCut(Cuts cut) {
+        String uuidString = cut.getmId().toString();
+        ContentValues values = getContentValues(cut);
 
+        /****
+            BEFORE LINE WAS USED BUT MIGHT BE THROWING ERRORS
+         */
         mDatabase.update(
-                CutsDbSchema.CutsTable.Cols.TITLE,
+                CutsDbSchema.CutsTable.NAME,
                 values,
                 CutsDbSchema.CutsTable.Cols.UUID + " = ?", new String[] { uuidString }
         );
@@ -95,7 +98,9 @@ public class Shop {
     private static ContentValues getContentValues(Cuts cut) {
         ContentValues values = new ContentValues();
 
-        //values.put(DBSCHEMA
+        //values.put(CutsDbSchema.CutsTable.Cols.DATE, cut.getmDate().getTime());
+        //values.put(CutsDbSchema.CutsTable.Cols.TITLE, cut.getmTitle());
+        values.put(CutsDbSchema.CutsTable.Cols.UUID, cut.getmId().toString());
 
         return values;
     }

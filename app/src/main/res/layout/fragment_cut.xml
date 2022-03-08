@@ -1,0 +1,23 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/cut_image"
+        android:layout_width="match_parent"
+        android:layout_height="513dp"
+        android:scaleType="centerInside"
+        android:cropToPadding="true"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/cut_description"
+        android:layout_width="match_parent"
+        android:layout_height="166dp"
+        android:text="Cut Description"/>
+
+
+</LinearLayout>

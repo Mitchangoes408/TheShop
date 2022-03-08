@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -22,6 +25,12 @@ public class UserProfile extends Fragment {
     private RecyclerView mCutsRecycler;
     private CutsAdapter mAdapter;
     DataBaseHelper myDb;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -65,21 +74,51 @@ public class UserProfile extends Fragment {
         updateUI();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.profile_menu, menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.new_cut:
+                Cuts newCut = new Cuts();
+                Shop.get(getActivity()).addCut(newCut);
+
+                Intent intent = CutPagerActivity.newIntent(getActivity(), newCut.getmId());
+                startActivity(intent);
+                return true;
+
+            case R.id.edit_profile:
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 
     private class CutsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mCutsView;
+        private TextView mCutsText;
         private Cuts mCut;
 
         public CutsHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.profile_cut_item, parent, false));
             mCutsView = (ImageView)itemView.findViewById(R.id.cut_image);
+            mCutsText = (TextView)itemView.findViewById(R.id.cut_text);
             itemView.setOnClickListener(this);
         }
 
         //NEEDS WORK FOR BINDING DATA
         public void bind(Cuts cut) {
             mCut = cut;
+            mCutsText.setText(mCut.getmId().toString());
         }
 
         @Override
