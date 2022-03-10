@@ -8,7 +8,8 @@
     <ImageView
         android:id="@+id/cut_image"
         android:layout_width="match_parent"
-        android:layout_height="513dp"
+        android:layout_height="450dp"
+        android:padding="15dp"
         android:scaleType="centerInside"
         android:cropToPadding="true"
         android:background="@android:color/darker_gray"/>
@@ -17,7 +18,7 @@
         android:id="@+id/cut_description"
         android:layout_width="match_parent"
         android:layout_height="166dp"
-        android:text="Cut Description"/>
+        android:text="Cut Descrription"/>
 
 
 </LinearLayout>

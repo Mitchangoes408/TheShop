@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">The Shop</string>
+    <string name="appointments_text">Upcoming appointments:</string>
 </resources>

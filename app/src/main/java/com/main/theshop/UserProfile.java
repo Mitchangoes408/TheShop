@@ -2,35 +2,37 @@ package com.main.theshop;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 public class UserProfile extends Fragment {
-    private ImageView mImageView;
-    private TextView mTextView;
+    private ImageView mProfileImage;
+    private TextView mProfileDescription;
+    private TextView mAppointments;
     private RecyclerView mCutsRecycler;
     private CutsAdapter mAdapter;
-    DataBaseHelper myDb;
+    CutBaseHelper myDb;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -39,8 +41,10 @@ public class UserProfile extends Fragment {
         View view = inflater.inflate(
                 R.layout.profile, container, false);
 
-        mTextView = (TextView) view.findViewById(R.id.profile_text);
-        mImageView = (ImageView)view.findViewById(R.id.profile_image);
+        mProfileDescription = (TextView) view.findViewById(R.id.profile_text);
+        mProfileImage = (ImageView)view.findViewById(R.id.profile_image);
+        mAppointments = (TextView)view.findViewById(R.id.upcoming_appointments);
+
 
         mCutsRecycler = (RecyclerView)view.findViewById(R.id.cuts_recycler_view);
         mCutsRecycler.setLayoutManager(
@@ -48,13 +52,8 @@ public class UserProfile extends Fragment {
 
         updateUI();
 
-
-
         return view;
-
     }
-
-
 
     public void updateUI() {
         Shop theShop = Shop.get(getActivity());
@@ -96,21 +95,30 @@ public class UserProfile extends Fragment {
 
                 return true;
 
+            case R.id.new_appointment:
+                //DISPLAY AND RETRIEVE INFORMATION FROM DATE PICKER
+                FragmentManager fm = getFragmentManager();
+
+                //CREATE AND ADD THE APPOINTMENT TO THE DATABASE
+
+
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-
+    //CUTS HELPER CLASSES FOR RECYCLERVIEW
 
     private class CutsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView mCutsView;
+        private ImageView mCutsImage;
         private TextView mCutsText;
         private Cuts mCut;
 
         public CutsHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.profile_cut_item, parent, false));
-            mCutsView = (ImageView)itemView.findViewById(R.id.cut_image);
+            mCutsImage = (ImageView)itemView.findViewById(R.id.cut_image);
             mCutsText = (TextView)itemView.findViewById(R.id.cut_text);
             itemView.setOnClickListener(this);
         }
@@ -129,7 +137,7 @@ public class UserProfile extends Fragment {
         }
     }
 
-    private class CutsAdapter extends  RecyclerView.Adapter<CutsHolder> {
+    private class CutsAdapter extends RecyclerView.Adapter<CutsHolder> {
         List<Cuts> mCuts;
 
         public CutsAdapter(List<Cuts> cuts) {
@@ -155,6 +163,63 @@ public class UserProfile extends Fragment {
 
         public void setCuts(List<Cuts> cuts) {
             mCuts = cuts;
+        }
+    }
+
+    //APPOINTMENT HELPER CLASSES FOR RECYCLERVIEW
+
+    private class ApptHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView mApptsText;
+        private Appointments mAppointment;
+
+        public ApptHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.appointments_item, parent, false));
+            mApptsText = (TextView)itemView.findViewById(R.id.upcoming_appointments);
+            itemView.setOnClickListener(this);
+        }
+
+        public void bind(Appointments appointment) {
+            mAppointment = appointment;
+            mApptsText.setText(mAppointment.getScheduledDate().toString());
+        }
+
+        @Override
+        public void onClick(View view) {
+            /**
+             ADD POP UP MENU FOR EITHER COMPLETING OR CANCELLING APPOINTMENT
+                Completing = remove from ApptDatabase, then proceed to add photo to
+                            profile RecyclerView
+                Cancelling = remove from ApptDatabase
+             */
+        }
+    }
+
+    private class ApptAdapter extends RecyclerView.Adapter<ApptHolder> {
+        List<Appointments> mAppointments;
+
+        public ApptAdapter(List<Appointments> appointments) {
+            mAppointments = appointments;
+        }
+
+        @Override
+        public ApptHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            return new ApptHolder(layoutInflater, parent);
+        }
+
+        @Override
+        public void onBindViewHolder(ApptHolder holder, int position) {
+            Appointments appointment = mAppointments.get(position);
+            holder.bind(appointment);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mAppointments.size();
+        }
+
+        public void setAppts(List<Appointments> appointments) {
+            mAppointments = appointments;
         }
     }
 

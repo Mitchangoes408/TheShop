@@ -12,15 +12,12 @@ import java.util.HashMap;
 
 import database.CutsDbSchema.CutsTable;
 
-public class DataBaseHelper extends SQLiteOpenHelper {
+public class CutBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
     public static final String DATABASE_NAME = "theshop.db";
 
-
-
-    public DataBaseHelper(Context context){
+    public CutBaseHelper(Context context){
         super(context, DATABASE_NAME, null, VERSION);
-        //SQLiteDatabase db = this.getWritableDatabase();
     }
 
     @Override
@@ -38,10 +35,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         database.execSQL("DROP TABLE IF EXISTS " + "cuts");
         onCreate(database);
-
-
-
-
     }
     /*
     public boolean insertUser (String username, String password, String fullName, String email, String phoneNumber, Boolean isClient) {

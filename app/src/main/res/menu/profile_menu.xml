@@ -11,4 +11,8 @@
         android:title="New Cut"
         app:showAsAction="ifRoom|withText" />
 
+    <item
+        android:id="@+id/new_appointment"
+        android:title="New Appointment" />
+
 </menu>

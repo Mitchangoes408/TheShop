@@ -21,7 +21,7 @@ public class Shop {
     private Shop(Context context) {
         mContext = context.getApplicationContext();
 
-        mDatabase = new DataBaseHelper(mContext).getWritableDatabase();
+        mDatabase = new CutBaseHelper(mContext).getWritableDatabase();
     }
 
     public static Shop get(Context context) {

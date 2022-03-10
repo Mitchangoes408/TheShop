@@ -50,8 +50,7 @@ public class CutPagerActivity extends AppCompatActivity {
         }
     }
 
-    public static Intent newIntent(
-            Context packageContext, UUID cutId) {
+    public static Intent newIntent(Context packageContext, UUID cutId) {
         Intent intent = new Intent(packageContext,
                 CutPagerActivity.class);
         intent.putExtra(EXTRA_CUT_ID, cutId);

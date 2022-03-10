@@ -5,17 +5,19 @@ import java.util.UUID;
 
 public class Appointments {
     private String cutType;
+    private String title;
     private Date scheduledDate;
     private Boolean isPaid;
     private Boolean isComplete;
     private UUID cutUUID;
 
-    public void Appointments(String cutType, Date scheduledDate, Boolean isComplete, Boolean isPaid) {
-        this.cutType = cutType;
-        this.scheduledDate = scheduledDate;
-        this.isComplete = isComplete;
-        this.isPaid = isPaid;
+    public Appointments() {
         this.cutUUID = UUID.randomUUID();
+    }
+
+    public Appointments(UUID uuid) {
+        cutUUID = uuid;
+        scheduledDate = new Date();
     }
 
     public String getCutType() {
@@ -53,4 +55,13 @@ public class Appointments {
     public UUID getCutUUID() {
         return cutUUID;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
 }
