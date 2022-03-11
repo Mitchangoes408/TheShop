@@ -32,7 +32,8 @@ public class UserProfile extends Fragment {
     private CutsAdapter mAdapter;
     private ApptAdapter mApptAdapter;
     private Appointments appointment;
-    CutBaseHelper myDb;
+    CutBaseHelper cutDb;
+    ApptBaseHelper apptDb;
 
 
 
@@ -52,16 +53,13 @@ public class UserProfile extends Fragment {
 
         mProfileDescription = (TextView) view.findViewById(R.id.profile_text);
         mProfileImage = (ImageView)view.findViewById(R.id.profile_image);
-        mAppointments = (TextView)view.findViewById(R.id.upcoming_appointments);
+        //mAppointments = (TextView)view.findViewById(R.id.upcoming_appointments);
 
 
-        /*
+
         mApptRecycler = (RecyclerView)view.findViewById(R.id.appt_recycler);
         mApptRecycler.setLayoutManager(
                 new LinearLayoutManager(getActivity()));
-
-         */
-
 
         mCutsRecycler = (RecyclerView)view.findViewById(R.id.cuts_recycler_view);
         mCutsRecycler.setLayoutManager(
@@ -75,14 +73,18 @@ public class UserProfile extends Fragment {
     public void updateUI() {
         Shop theShop = Shop.get(getActivity());
         List<Cuts> cuts = theShop.getCuts();
-        //List<Appointments> appointments = theShop.getAppts();
+        List<Appointments> appointments = theShop.getAppts();
         if(mAdapter == null) {
             mAdapter = new CutsAdapter(cuts);
             mCutsRecycler.setAdapter(mAdapter);
         }
+        if(mApptAdapter == null) {
+            mApptAdapter = new ApptAdapter(appointments);
+            mApptRecycler.setAdapter(mApptAdapter);
+        }
         else {
             mAdapter.notifyDataSetChanged();
-            //mApptAdapter.notifyDataSetChanged();
+            mApptAdapter.notifyDataSetChanged();
         }
 
     }
@@ -116,11 +118,21 @@ public class UserProfile extends Fragment {
                 return true;
 
             case R.id.new_appointment:
+                /**
+                //using ApptPagerActivity
                 Appointments newAppt = new Appointments();
                 Shop.get(getActivity()).addAppt(newAppt);
 
                 Intent apptIntent = ApptPagerActivity.newIntent(getActivity(), newAppt.getApptUUID());
                 startActivity(apptIntent);
+                 */
+
+                //Using Dialog
+                Appointments newAppt = new Appointments();
+                DatePickerFragment dateFragment = DatePickerFragment.newInstance(newAppt.getScheduledDate());
+                dateFragment.show(getFragmentManager(), DatePickerFragment.EXTRA_DATE);
+
+
                 return true;
 
             default:
