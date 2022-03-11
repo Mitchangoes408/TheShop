@@ -15,17 +15,26 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 public class UserProfile extends Fragment {
+    private static final int REQUEST_DATE = 0;
+
+    private static final String DIALOG_DATE ="DialogDate";
     private ImageView mProfileImage;
     private TextView mProfileDescription;
     private TextView mAppointments;
     private RecyclerView mCutsRecycler;
+    private RecyclerView mApptRecycler;
     private CutsAdapter mAdapter;
+    private ApptAdapter mApptAdapter;
+    private Appointments appointment;
     CutBaseHelper myDb;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,14 @@ public class UserProfile extends Fragment {
         mAppointments = (TextView)view.findViewById(R.id.upcoming_appointments);
 
 
+        /*
+        mApptRecycler = (RecyclerView)view.findViewById(R.id.appt_recycler);
+        mApptRecycler.setLayoutManager(
+                new LinearLayoutManager(getActivity()));
+
+         */
+
+
         mCutsRecycler = (RecyclerView)view.findViewById(R.id.cuts_recycler_view);
         mCutsRecycler.setLayoutManager(
                 new GridLayoutManager(getActivity(), 3));
@@ -58,13 +75,16 @@ public class UserProfile extends Fragment {
     public void updateUI() {
         Shop theShop = Shop.get(getActivity());
         List<Cuts> cuts = theShop.getCuts();
+        //List<Appointments> appointments = theShop.getAppts();
         if(mAdapter == null) {
             mAdapter = new CutsAdapter(cuts);
             mCutsRecycler.setAdapter(mAdapter);
-
         }
-        else
+        else {
             mAdapter.notifyDataSetChanged();
+            //mApptAdapter.notifyDataSetChanged();
+        }
+
     }
 
     @Override
@@ -87,8 +107,8 @@ public class UserProfile extends Fragment {
                 Cuts newCut = new Cuts();
                 Shop.get(getActivity()).addCut(newCut);
 
-                Intent intent = CutPagerActivity.newIntent(getActivity(), newCut.getmId());
-                startActivity(intent);
+                Intent cutIntent = CutPagerActivity.newIntent(getActivity(), newCut.getmId());
+                startActivity(cutIntent);
                 return true;
 
             case R.id.edit_profile:
@@ -96,12 +116,11 @@ public class UserProfile extends Fragment {
                 return true;
 
             case R.id.new_appointment:
-                //DISPLAY AND RETRIEVE INFORMATION FROM DATE PICKER
-                FragmentManager fm = getFragmentManager();
+                Appointments newAppt = new Appointments();
+                Shop.get(getActivity()).addAppt(newAppt);
 
-                //CREATE AND ADD THE APPOINTMENT TO THE DATABASE
-
-
+                Intent apptIntent = ApptPagerActivity.newIntent(getActivity(), newAppt.getApptUUID());
+                startActivity(apptIntent);
                 return true;
 
             default:

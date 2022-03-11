@@ -45,6 +45,7 @@
                 android:padding="5dp"
                 android:text="@string/appointments_text" />
 
+
             <TextView
                 android:id="@+id/upcoming_appointments"
                 android:layout_width="match_parent"
@@ -53,6 +54,12 @@
                 android:gravity="center"
                 android:text="No scheduled appointments." />
 
+            <!-- POSSIBLY REPLACE WITH APPTRECYCLERVIEW
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/appt_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            -->
 
 
 

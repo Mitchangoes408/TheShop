@@ -10,18 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import database.ApptCursorWrapper;
+import database.ApptDbSchema;
 import database.CutsCursorWrapper;
 import database.CutsDbSchema;
 
 public class Shop {
     private static Shop sShop;
     private Context mContext;
-    private SQLiteDatabase mDatabase;
+    private SQLiteDatabase mCutsDatabase;
+    private SQLiteDatabase mApptDatabase;
 
     private Shop(Context context) {
         mContext = context.getApplicationContext();
 
-        mDatabase = new CutBaseHelper(mContext).getWritableDatabase();
+        mCutsDatabase = new CutBaseHelper(mContext).getWritableDatabase();
+        mApptDatabase = new ApptBaseHelper(mContext).getWritableDatabase();
     }
 
     public static Shop get(Context context) {
@@ -32,7 +36,12 @@ public class Shop {
 
     public void addCut(Cuts cut) {
         ContentValues values = getContentValues(cut);
-        mDatabase.insert(CutsDbSchema.CutsTable.NAME, null, values);
+        mCutsDatabase.insert(CutsDbSchema.CutsTable.NAME, null, values);
+    }
+
+    public void addAppt(Appointments appointment) {
+        ContentValues values = getContentValues(appointment);
+        mApptDatabase.insert(ApptDbSchema.ApptTable.NAME, null, values);
     }
 
     public void updateCut(Cuts cut) {
@@ -42,10 +51,21 @@ public class Shop {
         /****
             BEFORE LINE WAS USED BUT MIGHT BE THROWING ERRORS
          */
-        mDatabase.update(
+        mCutsDatabase.update(
                 CutsDbSchema.CutsTable.NAME,
                 values,
                 CutsDbSchema.CutsTable.Cols.UUID + " = ?", new String[] { uuidString }
+        );
+    }
+
+    public void updateAppt(Appointments appointment) {
+        String uuidString = appointment.getApptUUID().toString();
+        ContentValues values = getContentValues(appointment);
+
+        mApptDatabase.update(
+                ApptDbSchema.ApptTable.NAME,
+                values,
+                ApptDbSchema.ApptTable.Cols.UUID + " = ?", new String[] {uuidString}
         );
     }
 
@@ -62,12 +82,29 @@ public class Shop {
             }
         }
         finally {
-            {
-                cursor.close();
-            }
+            cursor.close();
         }
 
         return cuts;
+    }
+
+    public List<Appointments> getAppts() {
+        List<Appointments> appointments = new ArrayList<>();
+
+        ApptCursorWrapper cursor = queryAppts(null, null);
+
+        try {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                appointments.add(cursor.getAppt());
+                cursor.moveToNext();
+            }
+        }
+        finally {
+            cursor.close();
+        }
+
+        return appointments;
     }
 
 
@@ -82,6 +119,23 @@ public class Shop {
 
             cursor.moveToFirst();
             return cursor.getCut();
+        }
+        finally {
+            cursor.close();
+        }
+    }
+
+    public Appointments getAppt(UUID id) {
+        ApptCursorWrapper cursor = queryAppts(ApptDbSchema.ApptTable.Cols.UUID + " = ?",
+                new String[] { id.toString() }
+                );
+
+        try {
+            if(cursor.getCount() == 0)
+                return null;
+
+            cursor.moveToFirst();
+            return cursor.getAppt();
         }
         finally {
             cursor.close();
@@ -105,8 +159,15 @@ public class Shop {
         return values;
     }
 
+    private static ContentValues getContentValues(Appointments appointment) {
+        ContentValues values = new ContentValues();
+
+        values.put(ApptDbSchema.ApptTable.Cols.UUID, appointment.getApptUUID().toString());
+        return values;
+    }
+
     private CutsCursorWrapper queryCuts(String whereClause, String[] whereArgs) {
-        Cursor cursor = mDatabase.query(
+        Cursor cursor = mCutsDatabase.query(
                 CutsDbSchema.CutsTable.NAME,
                 null,        //selects all columns
                 whereClause,
@@ -117,6 +178,20 @@ public class Shop {
         );
 
         return new CutsCursorWrapper(cursor);
+    }
+
+    private ApptCursorWrapper queryAppts(String whereClause, String[] whereArgs) {
+        Cursor cursor = mApptDatabase.query(
+                ApptDbSchema.ApptTable.NAME,
+                null,
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                null
+        );
+
+        return new ApptCursorWrapper(cursor);
     }
 
 }

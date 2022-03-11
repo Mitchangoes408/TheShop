@@ -49,8 +49,6 @@ public class CutFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != Activity.RESULT_OK)
             return;
-
-
     }
 
     /*****************************

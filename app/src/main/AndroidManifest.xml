@@ -16,7 +16,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".CutPagerActivity"
-            android:parentActivityName=".UserProfileActivity"/>
+            android:parentActivityName=".UserProfileActivity" />
+        <activity android:name=".ApptPagerActivity"
+            android:parentActivityName=".UserProfileActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.main.theshop.fileprovider"

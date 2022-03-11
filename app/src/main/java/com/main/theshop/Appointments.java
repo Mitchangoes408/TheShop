@@ -9,14 +9,15 @@ public class Appointments {
     private Date scheduledDate;
     private Boolean isPaid;
     private Boolean isComplete;
-    private UUID cutUUID;
+    private UUID apptUUID;
 
     public Appointments() {
-        this.cutUUID = UUID.randomUUID();
+        scheduledDate = new Date();
+        this.apptUUID = UUID.randomUUID();
     }
 
     public Appointments(UUID uuid) {
-        cutUUID = uuid;
+        apptUUID = uuid;
         scheduledDate = new Date();
     }
 
@@ -52,8 +53,8 @@ public class Appointments {
         isPaid = paid;
     }
 
-    public UUID getCutUUID() {
-        return cutUUID;
+    public UUID getApptUUID() {
+        return apptUUID;
     }
 
     public String getTitle() {
