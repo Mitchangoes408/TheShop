@@ -23,9 +23,9 @@ public class Shop {
 
     private Shop(Context context) {
         mContext = context.getApplicationContext();
-
-        mCutsDatabase = new CutBaseHelper(mContext).getWritableDatabase();
         mApptDatabase = new ApptBaseHelper(mContext).getWritableDatabase();
+        mCutsDatabase = new CutBaseHelper(mContext).getWritableDatabase();
+
     }
 
     public static Shop get(Context context) {
@@ -65,7 +65,7 @@ public class Shop {
         mApptDatabase.update(
                 ApptDbSchema.ApptTable.NAME,
                 values,
-                ApptDbSchema.ApptTable.Cols.UUID + " = ?", new String[] {uuidString}
+                ApptDbSchema.ApptTable.Cols.UUID + " = ?", new String[] { uuidString }
         );
     }
 

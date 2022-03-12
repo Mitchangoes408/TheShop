@@ -8,7 +8,7 @@ import database.ApptDbSchema.ApptTable;
 
 public class ApptBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
-    public static final String DATABASE_NAME = "theshop.db";
+    public static final String DATABASE_NAME = "theshop_appt.db";
 
     public ApptBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -26,8 +26,8 @@ public class ApptBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-        database.execSQL("DROP TABLE IF EXISTS " + "appointments");
-        onCreate(database);
+        //database.execSQL("DROP TABLE IF EXISTS " + "appointments");
+        //onCreate(database);
     }
 
     public Integer deleteAppt(Integer id) {

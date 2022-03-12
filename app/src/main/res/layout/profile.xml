@@ -45,21 +45,21 @@
                 android:padding="5dp"
                 android:text="@string/appointments_text" />
 
-
-            <TextView
-                android:id="@+id/upcoming_appointments"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:gravity="center"
-                android:text="No scheduled appointments." />
-
             <!-- POSSIBLY REPLACE WITH APPTRECYCLERVIEW
+                <TextView
+                    android:id="@+id/upcoming_appointments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:text="No scheduled appointments." />
+            -->
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/appt_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            -->
+                android:layout_height="40dp" />
+
 
 
 

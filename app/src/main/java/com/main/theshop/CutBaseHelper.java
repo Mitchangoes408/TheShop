@@ -10,11 +10,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import database.ApptDbSchema;
 import database.CutsDbSchema.CutsTable;
 
 public class CutBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
-    public static final String DATABASE_NAME = "theshop.db";
+    public static final String DATABASE_NAME = "theshop_cut.db";
 
     public CutBaseHelper(Context context){
         super(context, DATABASE_NAME, null, VERSION);
@@ -33,8 +34,8 @@ public class CutBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
 
-        database.execSQL("DROP TABLE IF EXISTS " + "cuts");
-        onCreate(database);
+        //database.execSQL("DROP TABLE IF EXISTS " + "cuts");
+        //onCreate(database);
     }
     /*
     public boolean insertUser (String username, String password, String fullName, String email, String phoneNumber, Boolean isClient) {
