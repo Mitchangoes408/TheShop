@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">The Shop</string>
     <string name="appointments_text">Upcoming appointments:</string>
+    <string-array name="cut_style">
+        <item>Buzz cut</item>
+        <item>Scissor cut</item>
+    </string-array>
 </resources>

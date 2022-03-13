@@ -5,8 +5,10 @@
       <map>
         <entry key="app/src/main/res/layout/activity_appt_pager.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2116289012398461" />
+        <entry key="app/src/main/res/layout/appointment_form.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/date_picker.xml" value="0.2116289012398461" />
-        <entry key="app/src/main/res/layout/fragment_appt.xml" value="0.1573321932449765" />
+        <entry key="app/src/main/res/layout/fragment_appt.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_cut.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/homepage.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/messenger.xml" value="0.2116289012398461" />

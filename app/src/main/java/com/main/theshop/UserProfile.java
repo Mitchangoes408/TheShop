@@ -118,20 +118,13 @@ public class UserProfile extends Fragment {
                 return true;
 
             case R.id.new_appointment:
-                /**
+
                 //using ApptPagerActivity
                 Appointments newAppt = new Appointments();
                 Shop.get(getActivity()).addAppt(newAppt);
 
                 Intent apptIntent = ApptPagerActivity.newIntent(getActivity(), newAppt.getApptUUID());
                 startActivity(apptIntent);
-                 */
-
-                //Using Dialog
-                Appointments newAppt = new Appointments();
-                DatePickerFragment dateFragment = DatePickerFragment.newInstance(newAppt.getScheduledDate());
-                dateFragment.show(getFragmentManager(), DatePickerFragment.EXTRA_DATE);
-
 
                 return true;
 

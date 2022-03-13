@@ -48,14 +48,14 @@ public class DatePickerFragment extends DialogFragment {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         View v = LayoutInflater.from(getActivity())
-                .inflate(R.layout.fragment_appt, null);
+                .inflate(R.layout.date_picker, null);
 
         mDatePicker = (DatePicker)v.findViewById(R.id.date_picker);
         mDatePicker.init(year, month, day, null);
 
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
-                .setTitle("Date of Appointment")
+                .setTitle("Select Appointment Date")
                 .setPositiveButton(android.R.string.ok,
                         new DialogInterface.OnClickListener() {
                             @Override
