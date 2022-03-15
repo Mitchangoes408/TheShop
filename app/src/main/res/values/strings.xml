@@ -5,4 +5,5 @@
         <item>Buzz cut</item>
         <item>Scissor cut</item>
     </string-array>
+    <string name="datepicker_text">Pick appointment date</string>
 </resources>

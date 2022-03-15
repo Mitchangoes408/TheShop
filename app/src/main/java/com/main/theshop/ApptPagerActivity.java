@@ -17,7 +17,7 @@ import java.util.UUID;
 public class ApptPagerActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private List<Appointments> mAppts;
-    private static final String EXTRA_APPT_ID = "android.theshop.appt_id";
+    private static final String EXTRA_APPT_ID = "com.main.theshop.appt_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

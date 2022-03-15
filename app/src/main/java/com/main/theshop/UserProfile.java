@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class UserProfile extends Fragment {
+    //CRIME FRAGMENT
     private static final int REQUEST_DATE = 0;
 
     private static final String DIALOG_DATE ="DialogDate";
@@ -31,7 +32,8 @@ public class UserProfile extends Fragment {
     private RecyclerView mApptRecycler;
     private CutsAdapter mAdapter;
     private ApptAdapter mApptAdapter;
-    private Appointments appointment;
+    private Appointments mAppointment;
+    private Cuts mCut;
     CutBaseHelper cutDb;
     ApptBaseHelper apptDb;
 
@@ -83,7 +85,9 @@ public class UserProfile extends Fragment {
             mApptRecycler.setAdapter(mApptAdapter);
         }
         else {
+            mAdapter.setCuts(cuts);
             mAdapter.notifyDataSetChanged();
+            mApptAdapter.setAppts(appointments);
             mApptAdapter.notifyDataSetChanged();
         }
 

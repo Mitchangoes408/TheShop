@@ -12,7 +12,6 @@ public class Appointments {
     private UUID apptUUID;
 
     public Appointments() {
-        scheduledDate = new Date();
         this.apptUUID = UUID.randomUUID();
     }
 
