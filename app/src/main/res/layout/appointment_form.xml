@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/appt_text"
@@ -26,17 +28,24 @@
         android:id="@+id/date_picker_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:gravity="center"
         android:textAlignment="center"
-        android:text="Pick appoinment time" />
+        android:background="@color/light_grey"
+        android:text="Pick appointment time" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp">
     <Button
         android:id="@+id/schedule_appt_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textAlignment="center"
         android:text="Schedule appointment" />
+    </LinearLayout>
 
 
 </LinearLayout>

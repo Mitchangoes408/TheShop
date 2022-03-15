@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheShop">
 
+
         <activity android:name=".UserProfileActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,8 +21,10 @@
         <activity android:name=".CutPagerActivity"
             android:parentActivityName=".UserProfileActivity" />
 
+
         <activity android:name=".ApptPagerActivity"
             android:parentActivityName=".UserProfileActivity" />
+
 
         <provider
             android:name="androidx.core.content.FileProvider"

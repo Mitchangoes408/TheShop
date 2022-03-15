@@ -78,13 +78,18 @@ public class ApptsFragment extends Fragment {
             }
         });
 
+
+        /*
         submitApptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /** FINISH ADDING APPOINTMENT DETAILS TO THE DATABASE AND RETURN TO HOME
-                 *      MAYBE ADD A TOAST TO LET USER KNOW THAT THE APPOINTMENT IS SCHEDULED **/
+                 *      MAYBE ADD A TOAST TO LET USER KNOW THAT THE APPOINTMENT IS SCHEDULED *
             }
         });
+        */
+
+
 
 
         return v;
