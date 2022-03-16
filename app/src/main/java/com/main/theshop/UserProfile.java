@@ -2,6 +2,7 @@ package com.main.theshop;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -126,6 +127,7 @@ public class UserProfile extends Fragment {
                 //using ApptPagerActivity
                 Appointments newAppt = new Appointments();
                 Shop.get(getActivity()).addAppt(newAppt);
+                Log.d("NEW APPT ", "newAppt UUID: " + newAppt.getApptUUID());
 
                 Intent apptIntent = ApptPagerActivity.newIntent(getActivity(), newAppt.getApptUUID());
                 startActivity(apptIntent);

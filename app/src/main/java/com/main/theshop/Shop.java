@@ -162,7 +162,9 @@ public class Shop {
     private static ContentValues getContentValues(Appointments appointment) {
         ContentValues values = new ContentValues();
 
+        //ADDS VALUES INTO THE DB
         values.put(ApptDbSchema.ApptTable.Cols.UUID, appointment.getApptUUID().toString());
+        values.put(ApptDbSchema.ApptTable.Cols.DATE, appointment.getScheduledDate().getTime());
         return values;
     }
 

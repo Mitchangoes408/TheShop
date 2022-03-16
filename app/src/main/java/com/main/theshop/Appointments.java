@@ -12,7 +12,10 @@ public class Appointments {
     private UUID apptUUID;
 
     public Appointments() {
+
         this.apptUUID = UUID.randomUUID();
+        //NEEDS DATE WHEN AN APPOINTMENT IS MADE FOR THE DB TO ACCESS LATER
+        scheduledDate = new Date();
     }
 
     public Appointments(UUID uuid) {

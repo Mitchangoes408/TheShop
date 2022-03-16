@@ -3,6 +3,7 @@ package com.main.theshop;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,10 +29,10 @@ public class ApptPagerActivity extends AppCompatActivity {
         mAppts = Shop.get(this).getAppts();
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
-            @NonNull
             @Override
             public Fragment getItem(int position) {
                 Appointments appointments = mAppts.get(position);
+                Log.d("NEW APPT ", "Pager onCreate UUID: " + appointments.getApptUUID());
                 return ApptsFragment.newInstance(appointments.getApptUUID());
             }
 
@@ -42,6 +43,7 @@ public class ApptPagerActivity extends AppCompatActivity {
         });
 
         UUID apptId = (UUID)getIntent().getSerializableExtra(EXTRA_APPT_ID);
+        Log.d("NEW APPT ", "PagerSerializable UUID: " + apptId);
 
         for(int i = 0; i < mAppts.size(); i++) {
             if(mAppts.get(i).getApptUUID().equals(apptId)) {
@@ -54,6 +56,7 @@ public class ApptPagerActivity extends AppCompatActivity {
     public static Intent newIntent(Context packageContext, UUID apptId) {
         Intent intent = new Intent(packageContext,
                 ApptPagerActivity.class);
+        Log.d("NEW APPT ", "newIntent newAppt UUID: " + apptId);
         intent.putExtra(EXTRA_APPT_ID, apptId);
         return intent;
     }

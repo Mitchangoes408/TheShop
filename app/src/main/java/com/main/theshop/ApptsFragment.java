@@ -3,6 +3,7 @@ package com.main.theshop;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class ApptsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID apptID = (UUID)getArguments().getSerializable(ARG_APPT_ID);
+        Log.d("NEW APPT ", "Fragment onCreate UUID: " + apptID);
         appointment = Shop.get(getActivity()).getAppt(apptID);
 
         //get photofile maybe?
@@ -112,6 +114,7 @@ public class ApptsFragment extends Fragment {
     public static ApptsFragment newInstance(UUID apptID) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_APPT_ID, apptID);
+        Log.d("NEW APPT ", "Fragment newInstance UUID: " + apptID);
         ApptsFragment fragment = new ApptsFragment();
         fragment.setArguments(args);
 
