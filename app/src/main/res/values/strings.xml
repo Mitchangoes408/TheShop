@@ -6,4 +6,6 @@
         <item>Scissor cut</item>
     </string-array>
     <string name="datepicker_text">Pick appointment date</string>
+    <string name="cancel_appt">Cancel Appointment</string>
+    <string name="complete_appt">Complete Appointment</string>
 </resources>

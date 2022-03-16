@@ -36,12 +36,36 @@ public class Shop {
 
     public void addCut(Cuts cut) {
         ContentValues values = getContentValues(cut);
-        mCutsDatabase.insert(CutsDbSchema.CutsTable.NAME, null, values);
+        mCutsDatabase.insert(
+                CutsDbSchema.CutsTable.NAME,
+                null,
+                values);
     }
 
     public void addAppt(Appointments appointment) {
         ContentValues values = getContentValues(appointment);
-        mApptDatabase.insert(ApptDbSchema.ApptTable.NAME, null, values);
+        mApptDatabase.insert(
+                ApptDbSchema.ApptTable.NAME,
+                null,
+                values);
+    }
+
+    public void deleteCut(Cuts cut) {
+        UUID cutId = cut.getmId();
+        mCutsDatabase.delete(
+                CutsDbSchema.CutsTable.NAME,
+                CutsDbSchema.CutsTable.Cols.UUID + " = ?",
+                new String[] { cutId.toString() }
+        );
+    }
+
+    public void deleteAppt(UUID apptId) {
+
+        mApptDatabase.delete(
+                ApptDbSchema.ApptTable.NAME,
+                ApptDbSchema.ApptTable.Cols.UUID + " = ?",
+                new String[] { apptId.toString() }
+        );
     }
 
     public void updateCut(Cuts cut) {
@@ -54,7 +78,8 @@ public class Shop {
         mCutsDatabase.update(
                 CutsDbSchema.CutsTable.NAME,
                 values,
-                CutsDbSchema.CutsTable.Cols.UUID + " = ?", new String[] { uuidString }
+                CutsDbSchema.CutsTable.Cols.UUID + " = ?",
+                new String[] { uuidString }
         );
     }
 
@@ -65,14 +90,18 @@ public class Shop {
         mApptDatabase.update(
                 ApptDbSchema.ApptTable.NAME,
                 values,
-                ApptDbSchema.ApptTable.Cols.UUID + " = ?", new String[] { uuidString }
+                ApptDbSchema.ApptTable.Cols.UUID + " = ?",
+                new String[] { uuidString }
         );
     }
 
     public List<Cuts> getCuts() {
         List<Cuts> cuts = new ArrayList<>();
 
-        CutsCursorWrapper cursor = queryCuts(null, null);
+        CutsCursorWrapper cursor = queryCuts(
+                null,
+                null
+        );
 
         try {
             cursor.moveToFirst();
@@ -126,7 +155,8 @@ public class Shop {
     }
 
     public Appointments getAppt(UUID id) {
-        ApptCursorWrapper cursor = queryAppts(ApptDbSchema.ApptTable.Cols.UUID + " = ?",
+        ApptCursorWrapper cursor = queryAppts(
+                ApptDbSchema.ApptTable.Cols.UUID + " = ?",
                 new String[] { id.toString() }
                 );
 
@@ -162,9 +192,10 @@ public class Shop {
     private static ContentValues getContentValues(Appointments appointment) {
         ContentValues values = new ContentValues();
 
-        //ADDS VALUES INTO THE DB
+        //ADDS to VALUES
         values.put(ApptDbSchema.ApptTable.Cols.UUID, appointment.getApptUUID().toString());
         values.put(ApptDbSchema.ApptTable.Cols.DATE, appointment.getScheduledDate().getTime());
+
         return values;
     }
 

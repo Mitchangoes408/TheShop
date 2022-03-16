@@ -1,5 +1,6 @@
 package com.main.theshop;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,13 +20,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Date;
 import java.util.List;
 
 public class UserProfile extends Fragment {
     //CRIME FRAGMENT
     private static final int REQUEST_DATE = 0;
 
-    private static final String DIALOG_DATE ="DialogDate";
+    private static final String DIALOG_DATE = "DialogDate";
+    private static final String DIALOG_APPT = "DialogAppt";
     private ImageView mProfileImage;
     private TextView mProfileDescription;
     private TextView mAppointments;
@@ -100,6 +103,7 @@ public class UserProfile extends Fragment {
         updateUI();
     }
 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -114,6 +118,8 @@ public class UserProfile extends Fragment {
                 Cuts newCut = new Cuts();
                 Shop.get(getActivity()).addCut(newCut);
 
+                //REMOVE CutPager, EITHER CALL CAMERA WIDGET TO ADD CUT OR MOVE BUTTON ENTIRELY
+                //  TO BEING CALLED ONCE APPOINTMENT IS FINISHED
                 Intent cutIntent = CutPagerActivity.newIntent(getActivity(), newCut.getmId());
                 startActivity(cutIntent);
                 return true;
@@ -221,6 +227,15 @@ public class UserProfile extends Fragment {
                             profile RecyclerView
                 Cancelling = remove from ApptDatabase
              */
+
+            FragmentManager fm = getFragmentManager();
+
+            ApptDialogFragment apptDialog = ApptDialogFragment.newInstance(mAppointment);
+            apptDialog.setTargetFragment(UserProfile.this, REQUEST_DATE);
+            apptDialog.show(fm, DIALOG_APPT);
+
+            //REMOVE APPOINTMENT DATE FROM RECYCLERVIEW/REFRESH RECYCLER WITH NEW DATASET
+
         }
     }
 

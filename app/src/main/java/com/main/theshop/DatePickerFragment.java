@@ -64,6 +64,8 @@ public class DatePickerFragment extends DialogFragment {
                                 int month = mDatePicker.getMonth();
                                 int day = mDatePicker.getDayOfMonth();
 
+                                //POP UP DIALOG FOR A TIME PICKER
+
                                 Date date = new GregorianCalendar(year, month, day).getTime();
                                 sendResult(Activity.RESULT_OK, date);
                             }
