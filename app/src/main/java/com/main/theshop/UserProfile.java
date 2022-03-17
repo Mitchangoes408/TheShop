@@ -35,15 +35,12 @@ public class UserProfile extends Fragment {
 
     private ImageView mProfileImage;
     private TextView mProfileDescription;
-    private TextView mAppointments;
     private RecyclerView mCutsRecycler;
     private RecyclerView mApptRecycler;
     private CutsAdapter mAdapter;
     private ApptAdapter mApptAdapter;
     private Appointments mAppointment;
     private Cuts mCut;
-    CutBaseHelper cutDb;
-    ApptBaseHelper apptDb;
 
     private File mCutPhotoFile;
 
