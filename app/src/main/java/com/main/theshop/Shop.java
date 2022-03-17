@@ -66,6 +66,7 @@ public class Shop {
                 ApptDbSchema.ApptTable.Cols.UUID + " = ?",
                 new String[] { apptId.toString() }
         );
+
     }
 
     public void updateCut(Cuts cut) {
@@ -195,6 +196,8 @@ public class Shop {
         //ADDS to VALUES
         values.put(ApptDbSchema.ApptTable.Cols.UUID, appointment.getApptUUID().toString());
         values.put(ApptDbSchema.ApptTable.Cols.DATE, appointment.getScheduledDate().getTime());
+        values.put(ApptDbSchema.ApptTable.Cols.TITLE, appointment.getTitle());
+        values.put(ApptDbSchema.ApptTable.Cols.TYPE, appointment.getCutType());
 
         return values;
     }

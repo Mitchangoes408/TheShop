@@ -9,10 +9,19 @@
         android:id="@+id/date_dialog_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="25dp"
+        android:padding="10dp"
         android:textAlignment="center"
         android:gravity="center"
         android:text="Appointment date"/>
+
+    <TextView
+        android:id="@+id/type_dialog_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="Appointment Type" />
 
     <LinearLayout
         android:layout_width="match_parent"

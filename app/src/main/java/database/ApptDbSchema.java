@@ -10,6 +10,7 @@ public class ApptDbSchema {
             public static final String TITLE = "title";
             public static final String UUID = "uuid";
             public static final String DATE = "date";
+            public static final String TYPE = "type";
         }
     }
 

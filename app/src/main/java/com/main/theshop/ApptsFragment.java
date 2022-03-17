@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -83,27 +84,39 @@ public class ApptsFragment extends Fragment {
         datePickerButton = (Button) v.findViewById(R.id.date_picker_button);
         //DATE PICKER DETAILS
         datePickerButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+
                 FragmentManager fm = getFragmentManager();
 
                 DatePickerFragment dateFragment = DatePickerFragment.newInstance(appointment.getScheduledDate());
                 dateFragment.setTargetFragment(ApptsFragment.this, REQUEST_DATE);
                 dateFragment.show(fm, DIALOG_DATE);
             }
+
         });
 
-        submitApptBtn = (Button) v.findViewById(R.id.schedule_button);
+        submitApptBtn = (Button) v.findViewById(R.id.schedule_appt_btn);
         //SUBMIT BUTTON DETAILS
-        /*
+
         submitApptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /** FINISH ADDING APPOINTMENT DETAILS TO THE DATABASE AND RETURN TO HOME
-                 *      MAYBE ADD A TOAST TO LET USER KNOW THAT THE APPOINTMENT IS SCHEDULED *
+                /*FINISH ADDING APPOINTMENT DETAILS TO THE DATABASE AND RETURN TO HOME
+                *      MAYBE ADD A TOAST TO LET USER KNOW THAT THE APPOINTMENT IS SCHEDULED */
+
+                String cutType = apptSpinner.getSelectedItem().toString();
+                appointment.setCutType(cutType);
+                Toast toast = Toast.makeText(getContext(), "Scheduled " + cutType, Toast.LENGTH_LONG);
+                toast.show();
+                getActivity().onBackPressed();
+
             }
-        });
-        */
+
+         });
+
+
 
 
 

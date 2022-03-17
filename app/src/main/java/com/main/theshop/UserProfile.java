@@ -25,10 +25,12 @@ import java.util.List;
 
 public class UserProfile extends Fragment {
     //CRIME FRAGMENT
-    private static final int REQUEST_DATE = 0;
+    private static final int REQUEST_DIALOG = 0;
 
     private static final String DIALOG_DATE = "DialogDate";
     private static final String DIALOG_APPT = "DialogAppt";
+    private static final String EXTRA_DIALOG = "com.main.theshop.dialog";
+
     private ImageView mProfileImage;
     private TextView mProfileDescription;
     private TextView mAppointments;
@@ -98,10 +100,25 @@ public class UserProfile extends Fragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != Activity.RESULT_OK)
+            return;
+
+        if(requestCode == REQUEST_DIALOG) {
+            //DELETE THE APPOINTMENT FROM THE ARRAYLIST THEN UPDATE UI
+            Shop theShop = Shop.get(getActivity());
+            Log.d("DIALOG", "onActivityResult: Deleted Appt ID: " + data.getSerializableExtra(EXTRA_DIALOG).toString());
+            Log.d("DIALOG", "onActivityResult: Active Appts " + theShop.getAppts().size());
+            updateUI();
+        }
+    }
+    @Override
     public void onResume() {
         super.onResume();
         updateUI();
     }
+
+
 
 
     @Override
@@ -231,10 +248,8 @@ public class UserProfile extends Fragment {
             FragmentManager fm = getFragmentManager();
 
             ApptDialogFragment apptDialog = ApptDialogFragment.newInstance(mAppointment);
-            apptDialog.setTargetFragment(UserProfile.this, REQUEST_DATE);
+            apptDialog.setTargetFragment(UserProfile.this, REQUEST_DIALOG);
             apptDialog.show(fm, DIALOG_APPT);
-
-            //REMOVE APPOINTMENT DATE FROM RECYCLERVIEW/REFRESH RECYCLER WITH NEW DATASET
 
         }
     }

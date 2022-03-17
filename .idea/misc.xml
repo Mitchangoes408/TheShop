@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Mitchell/StudioProjects/TheShop/app/src/main/res/layout/appointment_form.xml" value="0.24427083333333333" />
+        <entry key="..\:/Users/Mitchell/StudioProjects/TheShop/app/src/main/res/layout/appt_dialog.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/activity_appt_pager.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2116289012398461" />
         <entry key="app/src/main/res/layout/appointment_form.xml" value="0.25" />

@@ -20,7 +20,8 @@ public class ApptBaseHelper extends SQLiteOpenHelper {
                 "(" + "_id integer PRIMARY KEY AUTOINCREMENT," +
                 ApptTable.Cols.UUID + ", " +
                 ApptTable.Cols.TITLE + ", " +
-                ApptTable.Cols.DATE + ")"
+                ApptTable.Cols.DATE + "," +
+                ApptTable.Cols.TYPE + ")"
         );
     }
 

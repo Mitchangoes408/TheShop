@@ -32,7 +32,6 @@ public class ApptPagerActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int position) {
                 Appointments appointments = mAppts.get(position);
-                Log.d("NEW APPT ", "Pager onCreate UUID: " + appointments.getApptUUID());
                 return ApptsFragment.newInstance(appointments.getApptUUID());
             }
 
@@ -43,7 +42,6 @@ public class ApptPagerActivity extends AppCompatActivity {
         });
 
         UUID apptId = (UUID)getIntent().getSerializableExtra(EXTRA_APPT_ID);
-        Log.d("NEW APPT ", "PagerSerializable UUID: " + apptId);
 
         for(int i = 0; i < mAppts.size(); i++) {
             if(mAppts.get(i).getApptUUID().equals(apptId)) {

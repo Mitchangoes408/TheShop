@@ -1,8 +1,10 @@
 package com.main.theshop;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -15,14 +17,26 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 
 public class ApptDialogFragment extends DialogFragment {
     private TextView apptDate;
+    private TextView apptType;
     private Button completeAppt;
     private Button cancelAppt;
 
     private static final String ARG_APPT = "appointment";
+    private static final String EXTRA_DIALOG = "com.main.theshop.dialog";
+
+    private void sendResult(int resultCode, UUID apptId) {
+        if(getTargetFragment() == null)
+            return;
+
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_DIALOG, apptId);
+        getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
+    }
 
     public static ApptDialogFragment newInstance(Appointments appointment) {
         Bundle args = new Bundle();
@@ -31,8 +45,6 @@ public class ApptDialogFragment extends DialogFragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -44,6 +56,9 @@ public class ApptDialogFragment extends DialogFragment {
 
       apptDate = (TextView) v.findViewById(R.id.date_dialog_text);
       apptDate.setText(Shop.get(getActivity()).getAppt(apptId).getScheduledDate().toString());
+
+      apptType = (TextView) v.findViewById(R.id.type_dialog_text);
+      apptType.setText(Shop.get(getActivity()).getAppt(apptId).getCutType());
 
       completeAppt = (Button) v.findViewById(R.id.complete_appt_btn);
       completeAppt.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +75,10 @@ public class ApptDialogFragment extends DialogFragment {
           public void onClick(View view) {
               /** DELETE APPOINTMENT FROM DATABASE **/
               Shop.get(getActivity()).deleteAppt(apptId);
+
+              //USED TO
+              sendResult(Activity.RESULT_OK, apptId);
+              getDialog().dismiss();
           }
       });
 
@@ -71,8 +90,7 @@ public class ApptDialogFragment extends DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
-
-
+                                sendResult(Activity.RESULT_OK, apptId);
                             }
                         })
                 .create();

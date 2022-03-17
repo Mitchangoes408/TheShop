@@ -17,10 +17,12 @@ public class ApptCursorWrapper extends CursorWrapper{
         String uuidString = getString(getColumnIndex(ApptDbSchema.ApptTable.Cols.UUID));
         String title = getString(getColumnIndex(ApptDbSchema.ApptTable.Cols.TITLE));
         long date = getLong(getColumnIndex(ApptDbSchema.ApptTable.Cols.DATE));
+        String apptType = getString(getColumnIndex(ApptDbSchema.ApptTable.Cols.TYPE));
 
         Appointments appointment = new Appointments(UUID.fromString(uuidString));
         appointment.setScheduledDate(new Date(date));
         appointment.setTitle(title);
+        appointment.setCutType(apptType);
 
         return appointment;
     }
