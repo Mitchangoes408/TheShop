@@ -2,6 +2,7 @@ package com.main.theshop;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +44,8 @@ public class UserProfile extends Fragment {
     private Cuts mCut;
     CutBaseHelper cutDb;
     ApptBaseHelper apptDb;
+
+    private File mCutPhotoFile;
 
 
 
@@ -172,14 +176,25 @@ public class UserProfile extends Fragment {
         public CutsHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.profile_cut_item, parent, false));
             mCutsImage = (ImageView)itemView.findViewById(R.id.cut_image);
-            mCutsText = (TextView)itemView.findViewById(R.id.cut_text);
+            //mCutsText = (TextView)itemView.findViewById(R.id.cut_text);
             itemView.setOnClickListener(this);
         }
 
         //NEEDS WORK FOR BINDING DATA
         public void bind(Cuts cut) {
             mCut = cut;
-            mCutsText.setText(mCut.getmId().toString());
+            //mCutsText.setText(mCut.getmId().toString());
+            mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(mCut);
+
+            if(mCutPhotoFile == null || !mCutPhotoFile.exists()) {
+                mCutsImage.setImageDrawable(null);
+            }
+            else {
+                Bitmap bm = PictureUtils.getScaledBitmap(
+                        mCutPhotoFile.getPath(), getActivity()
+                );
+                mCutsImage.setImageBitmap(bm);
+            }
         }
 
         @Override
