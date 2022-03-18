@@ -2,19 +2,29 @@ package com.main.theshop;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -22,12 +32,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 public class UserProfile extends Fragment {
     //CRIME FRAGMENT
     private static final int REQUEST_DIALOG = 0;
+    private static final int REQUEST_PHOTO = 1;
 
     private static final String DIALOG_DATE = "DialogDate";
     private static final String DIALOG_APPT = "DialogAppt";
@@ -52,6 +64,7 @@ public class UserProfile extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setHasOptionsMenu(true);
     }
 
@@ -62,6 +75,8 @@ public class UserProfile extends Fragment {
         //myDb = new DataBaseHelper(this.getContext());
         View view = inflater.inflate(
                 R.layout.profile, container, false);
+
+
 
         mProfileDescription = (TextView) view.findViewById(R.id.profile_text);
         mProfileImage = (ImageView)view.findViewById(R.id.profile_image);
@@ -74,8 +89,13 @@ public class UserProfile extends Fragment {
                 new LinearLayoutManager(getActivity()));
 
         mCutsRecycler = (RecyclerView)view.findViewById(R.id.cuts_recycler_view);
+
         mCutsRecycler.setLayoutManager(
                 new GridLayoutManager(getActivity(), 3));
+
+
+        //ATTEMPT FOR ONLONGCLICK
+        registerForContextMenu(mCutsRecycler);
 
         updateUI();
 
@@ -85,6 +105,7 @@ public class UserProfile extends Fragment {
     public void updateUI() {
         Shop theShop = Shop.get(getActivity());
         List<Cuts> cuts = theShop.getCuts();
+        Collections.reverse(cuts);      //THIS IS DONE SO RECYCLER LOADS BY MOST RECENT
         List<Appointments> appointments = theShop.getAppts();
         if(mAdapter == null) {
             mAdapter = new CutsAdapter(cuts);
@@ -123,7 +144,27 @@ public class UserProfile extends Fragment {
     }
 
 
+    /** LONG PRESS ON CUT ITEM ACTIONS **/
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.delete_item:
+                //GET ITEM INFO, DELETE ITEM AND REFRESH
+                Shop theShop = Shop.get(getActivity());
+                List<Cuts> cuts = theShop.getCuts();
+                Cuts cut = cuts.get(mAdapter.getPosition());
 
+                Shop.get(getActivity()).deleteCut(cut);
+
+                //REFRESH SCREEN
+                updateUI();
+                Toast.makeText(getContext(), "Deleted item", Toast.LENGTH_SHORT).show();
+
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -132,6 +173,7 @@ public class UserProfile extends Fragment {
 
     }
 
+    /** APP MENU OPTION ACTIONS **/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
@@ -139,10 +181,28 @@ public class UserProfile extends Fragment {
                 Cuts newCut = new Cuts();
                 Shop.get(getActivity()).addCut(newCut);
 
-                //REMOVE CutPager, EITHER CALL CAMERA WIDGET TO ADD CUT OR MOVE BUTTON ENTIRELY
-                //  TO BEING CALLED ONCE APPOINTMENT IS FINISHED
-                Intent cutIntent = CutPagerActivity.newIntent(getActivity(), newCut.getmId());
-                startActivity(cutIntent);
+                //TAKE THE PICTURE TO ADD TO THE RECYCLERVIEW
+                final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(newCut);
+
+                Uri uri = FileProvider.getUriForFile(getActivity(),
+                        "com.main.theshop.fileprovider",
+                        mCutPhotoFile);
+
+                captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
+                List<ResolveInfo> cameraActivities =
+                        getActivity().getPackageManager().queryIntentActivities(
+                                captureImage, PackageManager.MATCH_DEFAULT_ONLY);
+
+                for(ResolveInfo activity : cameraActivities) {
+                    getActivity().grantUriPermission(activity.activityInfo.packageName,
+                            uri,
+                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                }
+
+                startActivityForResult(captureImage, REQUEST_PHOTO);
                 return true;
 
             case R.id.edit_profile:
@@ -168,7 +228,13 @@ public class UserProfile extends Fragment {
 
     //CUTS HELPER CLASSES FOR RECYCLERVIEW
 
-    private class CutsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    /** NOTES FOR CUTS RECYCLER
+     *      REVERSE ORDER SO THE MOST RECENT CUTS ARE AT THE FRONT
+     *      FIND A WAY TO ADD A BOOKMARK TO ADD TO MAIN PROFILE IMAGE
+     *      (NOT AT IMPORTANT RN) FIGURE OUT SOME FORMATTING MATH TO MAKE IMAGES FIT NICELY ON ALL DEVICES
+     */
+
+    private class CutsHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {
         private ImageView mCutsImage;
         private TextView mCutsText;
         private Cuts mCut;
@@ -176,18 +242,22 @@ public class UserProfile extends Fragment {
         public CutsHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.profile_cut_item, parent, false));
             mCutsImage = (ImageView)itemView.findViewById(R.id.cut_image);
-            //mCutsText = (TextView)itemView.findViewById(R.id.cut_text);
+            mCutsText = (TextView)itemView.findViewById(R.id.cut_text);
+
+            /** MAYBE ON LONG PRESS BRING UP A DELETE OPTION **/
             itemView.setOnClickListener(this);
+            itemView.setOnCreateContextMenuListener(this);
         }
 
         //NEEDS WORK FOR BINDING DATA
         public void bind(Cuts cut) {
             mCut = cut;
-            //mCutsText.setText(mCut.getmId().toString());
+
             mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(mCut);
 
             if(mCutPhotoFile == null || !mCutPhotoFile.exists()) {
                 mCutsImage.setImageDrawable(null);
+                mCutsText.setText(mCut.getmId().toString());
             }
             else {
                 Bitmap bm = PictureUtils.getScaledBitmap(
@@ -195,6 +265,9 @@ public class UserProfile extends Fragment {
                 );
                 mCutsImage.setImageBitmap(bm);
             }
+
+            mCutsText.setText(mCut.getmId().toString());
+
         }
 
         @Override
@@ -203,13 +276,25 @@ public class UserProfile extends Fragment {
                     getActivity(), mCut.getmId());
             startActivity(intent);
         }
+
+
+
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            MenuInflater inflater = getActivity().getMenuInflater();
+            inflater.inflate(R.menu.context_menu, contextMenu);
+        }
+
     }
 
     private class CutsAdapter extends RecyclerView.Adapter<CutsHolder> {
         List<Cuts> mCuts;
+        private int position;
 
         public CutsAdapter(List<Cuts> cuts) {
             mCuts = cuts;
+
         }
 
         @Override
@@ -221,12 +306,30 @@ public class UserProfile extends Fragment {
         @Override
         public void onBindViewHolder(CutsHolder holder, int position) {
             Cuts cut = mCuts.get(position);
+            Log.d("CONTEXT MENU", "Cut Position: " + position);
             holder.bind(cut);
+
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    setPosition(holder.getPosition());
+                    Log.d("CONTEXT MENU", "Long Position: " + holder.getPosition());
+                    return false;
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
             return mCuts.size();
+        }
+
+        public int getPosition() {
+            return position;
+        }
+
+        public void setPosition(int position) {
+            this.position = position;
         }
 
         public void setCuts(List<Cuts> cuts) {

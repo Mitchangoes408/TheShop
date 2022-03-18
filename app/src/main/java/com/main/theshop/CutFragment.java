@@ -2,6 +2,7 @@ package com.main.theshop;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -65,6 +66,15 @@ public class CutFragment extends Fragment {
                 false);
 
         cutImage = (ImageView)v.findViewById(R.id.cut_image);
+        if(mCutPhotoFile == null || !mCutPhotoFile.exists()) {
+            cutImage.setImageDrawable(null);
+        }
+        else {
+            Bitmap bm = PictureUtils.getScaledBitmap(
+                    mCutPhotoFile.getPath(), getActivity()
+            );
+            cutImage.setImageBitmap(bm);
+        }
         cutText = (TextView)v.findViewById(R.id.cut_description);
 
         return v;
