@@ -35,11 +35,15 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class UserProfile extends Fragment {
     //CRIME FRAGMENT
     private static final int REQUEST_DIALOG = 0;
     private static final int REQUEST_PHOTO = 1;
+
+    private static final int TRUE = 1;
+    private static final int FALSE = 0;
 
     private static final String DIALOG_DATE = "DialogDate";
     private static final String DIALOG_APPT = "DialogAppt";
@@ -47,15 +51,12 @@ public class UserProfile extends Fragment {
 
     private ImageView mProfileImage;
     private TextView mProfileDescription;
-    private TextView mAppointments;
     private RecyclerView mCutsRecycler;
     private RecyclerView mApptRecycler;
     private CutsAdapter mAdapter;
     private ApptAdapter mApptAdapter;
-    private Appointments mAppointment;
-    private Cuts mCut;
-    CutBaseHelper cutDb;
-    ApptBaseHelper apptDb;
+    private Cuts currFav;
+
 
     private File mCutPhotoFile;
 
@@ -65,6 +66,7 @@ public class UserProfile extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //currFav = Shop.get(getActivity()).getFavorite();
         setHasOptionsMenu(true);
     }
 
@@ -72,7 +74,6 @@ public class UserProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        //myDb = new DataBaseHelper(this.getContext());
         View view = inflater.inflate(
                 R.layout.profile, container, false);
 
@@ -80,7 +81,29 @@ public class UserProfile extends Fragment {
 
         mProfileDescription = (TextView) view.findViewById(R.id.profile_text);
         mProfileImage = (ImageView)view.findViewById(R.id.profile_image);
-        //mAppointments = (TextView)view.findViewById(R.id.upcoming_appointments);
+
+
+
+         //SEARCH THROUGH THE CUTS DB AND FIND THE FAVORITED CUT AND LOAD IT
+         //      STORE THE CURRENT FAVORITE CUT UUID FOR QUICK ACCESS ON NEW FAVORITE ITEM
+
+        /*
+        if(currFav != null)
+            mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(currFav);
+
+        if(mCutPhotoFile == null || !mCutPhotoFile.exists()) {
+            mProfileImage.setImageDrawable(null);
+            //mCutsText.setText(mCut.getmId().toString());
+        }
+        else {
+            Bitmap bm = PictureUtils.getScaledBitmap(
+                    mCutPhotoFile.getPath(), getActivity()
+            );
+            mProfileImage.setImageBitmap(bm);
+        }
+
+         */
+
 
 
 
@@ -144,27 +167,7 @@ public class UserProfile extends Fragment {
     }
 
 
-    /** LONG PRESS ON CUT ITEM ACTIONS **/
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.delete_item:
-                //GET ITEM INFO, DELETE ITEM AND REFRESH
-                Shop theShop = Shop.get(getActivity());
-                List<Cuts> cuts = theShop.getCuts();
-                Cuts cut = cuts.get(mAdapter.getPosition());
-
-                Shop.get(getActivity()).deleteCut(cut);
-
-                //REFRESH SCREEN
-                updateUI();
-                Toast.makeText(getContext(), "Deleted item", Toast.LENGTH_SHORT).show();
-
-                return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
+    /**     MENU METHODS    **/
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -226,10 +229,56 @@ public class UserProfile extends Fragment {
         }
     }
 
+    /** LONG PRESS ON CUT ITEM ACTIONS **/
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        Shop theShop = Shop.get(getActivity());
+        List<Cuts> cuts = theShop.getCuts();
+        Collections.reverse(cuts);
+        Cuts cut = cuts.get(mAdapter.getPosition());
+
+        switch(item.getItemId()) {
+            case R.id.delete_item:
+                //GET ITEM INFO, DELETE ITEM AND REFRESH
+                Shop.get(getActivity()).deleteCut(cut);
+
+                //REFRESH SCREEN
+                updateUI();
+                Toast.makeText(getContext(), "Deleted item", Toast.LENGTH_SHORT).show();
+
+                return true;
+
+            case R.id.favorite_item:
+                //ADD FAVORITE MARKER TO CUT
+                cut.setFavorite(TRUE);
+                //REMOVE FAVORITE MARKER FROM CURRENT FAVORITE ITEM
+                currFav.setFavorite(FALSE);
+                currFav = cut;
+
+                //REPLACE THE PROFILE IMAGE AND DESCRIPTION WITH SELECTION
+                mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(cut);
+
+                if(mCutPhotoFile == null || !mCutPhotoFile.exists()) {
+                    mProfileImage.setImageDrawable(null);
+                    //mCutsText.setText(mCut.getmId().toString());
+                }
+                else {
+                    Bitmap bm = PictureUtils.getScaledBitmap(
+                            mCutPhotoFile.getPath(), getActivity()
+                    );
+                    mProfileImage.setImageBitmap(bm);
+                }
+
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
     //CUTS HELPER CLASSES FOR RECYCLERVIEW
 
     /** NOTES FOR CUTS RECYCLER
-     *      REVERSE ORDER SO THE MOST RECENT CUTS ARE AT THE FRONT
+     *      REVERSE ORDER SO THE MOST RECENT CUTS ARE AT THE FRONT (done)
      *      FIND A WAY TO ADD A BOOKMARK TO ADD TO MAIN PROFILE IMAGE
      *      (NOT AT IMPORTANT RN) FIGURE OUT SOME FORMATTING MATH TO MAKE IMAGES FIT NICELY ON ALL DEVICES
      */
@@ -244,8 +293,10 @@ public class UserProfile extends Fragment {
             mCutsImage = (ImageView)itemView.findViewById(R.id.cut_image);
             mCutsText = (TextView)itemView.findViewById(R.id.cut_text);
 
-            /** MAYBE ON LONG PRESS BRING UP A DELETE OPTION **/
+
             itemView.setOnClickListener(this);
+
+            /** MAYBE ON LONG PRESS BRING UP A DELETE OPTION **/
             itemView.setOnCreateContextMenuListener(this);
         }
 

@@ -27,7 +27,8 @@ public class CutBaseHelper extends SQLiteOpenHelper {
                 "(" + "_id integer PRIMARY KEY AUTOINCREMENT," +
                 CutsTable.Cols.UUID + ", " +
                 CutsTable.Cols.TITLE + ", " +
-                CutsTable.Cols.DATE + ")"
+                CutsTable.Cols.DATE + ", " +
+                CutsTable.Cols.FAVORITED + ")"
         );
     }
 
@@ -37,6 +38,7 @@ public class CutBaseHelper extends SQLiteOpenHelper {
         //database.execSQL("DROP TABLE IF EXISTS " + "cuts");
         //onCreate(database);
     }
+
     /*
     public boolean insertUser (String username, String password, String fullName, String email, String phoneNumber, Boolean isClient) {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -94,6 +96,4 @@ public class CutBaseHelper extends SQLiteOpenHelper {
     }
 
      */
-
-
 }

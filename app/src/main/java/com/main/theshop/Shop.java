@@ -57,17 +57,20 @@ public class Shop {
                 CutsDbSchema.CutsTable.Cols.UUID + " = ?",
                 new String[] { cutId.toString() }
         );
+
+        /** SHOULD DELETE FROM LIST<CUTS> AS WELL; **/
     }
 
     public void deleteAppt(UUID apptId) {
-
         mApptDatabase.delete(
                 ApptDbSchema.ApptTable.NAME,
                 ApptDbSchema.ApptTable.Cols.UUID + " = ?",
                 new String[] { apptId.toString() }
         );
 
+        /** SHOULD DELETE FROM LIST<APPTS> AS WELL; **/
     }
+
 
     public void updateCut(Cuts cut) {
         String uuidString = cut.getmId().toString();
@@ -170,6 +173,24 @@ public class Shop {
         }
         finally {
             cursor.close();
+        }
+    }
+
+    public Cuts getFavorite() {
+        CutsCursorWrapper cursor = queryCuts(
+                CutsDbSchema.CutsTable.Cols.FAVORITED + " = ?",
+                new String[] { "1" }
+        );
+
+        try {
+            if(cursor.getCount() == 0)
+                return null;
+
+            cursor.moveToFirst();
+            return cursor.getCut();
+        }
+        finally {
+            cursor.close();;
         }
     }
 

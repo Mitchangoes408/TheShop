@@ -20,10 +20,9 @@
 
             <ImageView
                 android:id="@+id/profile_image"
-                android:layout_width="101dp"
-                android:layout_height="101dp"
-                android:background="#696969"
-                android:padding="15dp" />
+                android:layout_width="95dp"
+                android:layout_height="125dp"
+                android:background="#696969" />
 
             <TextView
                 android:id="@+id/profile_text"
