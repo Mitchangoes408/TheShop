@@ -7,28 +7,25 @@ public class Cuts {
     private UUID mId;           //holds cut ID
     private String mTitle;      //cut description
     private Date mDate;         //date of cut
-    private boolean isFavorite;
+    private String isFavorite;
 
     public Cuts() {
-        isFavorite = false;
+        isFavorite = "false";
         this.mId = UUID.randomUUID();
     }
 
     public Cuts(UUID id) {
         mId = id;
-        isFavorite = false;
+        isFavorite = "false";
         mDate = new Date();
     }
 
-    public boolean isFavorite() {
+    public String isFavorite() {
         return isFavorite;
     }
 
-    public void setFavorite(int favoriteVal) {
-        if(favoriteVal == 1)
-            this.isFavorite = true;
-        else
-            this.isFavorite = false;
+    public void setFavorite(String favoriteVal) {
+        this.isFavorite = favoriteVal;
     }
 
     public UUID getmId() {

@@ -66,7 +66,7 @@ public class UserProfile extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //currFav = Shop.get(getActivity()).getFavorite();
+        currFav = Shop.get(getActivity()).getFavorite();
         setHasOptionsMenu(true);
     }
 
@@ -87,9 +87,11 @@ public class UserProfile extends Fragment {
          //SEARCH THROUGH THE CUTS DB AND FIND THE FAVORITED CUT AND LOAD IT
          //      STORE THE CURRENT FAVORITE CUT UUID FOR QUICK ACCESS ON NEW FAVORITE ITEM
 
-        /*
-        if(currFav != null)
+
+        if(currFav != null){
             mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(currFav);
+            mProfileDescription.setText(currFav.getmTitle());
+        }
 
         if(mCutPhotoFile == null || !mCutPhotoFile.exists()) {
             mProfileImage.setImageDrawable(null);
@@ -102,7 +104,7 @@ public class UserProfile extends Fragment {
             mProfileImage.setImageBitmap(bm);
         }
 
-         */
+
 
 
 
@@ -250,9 +252,14 @@ public class UserProfile extends Fragment {
 
             case R.id.favorite_item:
                 //ADD FAVORITE MARKER TO CUT
-                cut.setFavorite(TRUE);
+                cut.setFavorite("true");
                 //REMOVE FAVORITE MARKER FROM CURRENT FAVORITE ITEM
-                currFav.setFavorite(FALSE);
+
+                if(currFav != null) {       //CHECK FOR WHEN NO CURRENT FAVORITE IS SET
+                    currFav.setFavorite("false");
+                    Shop.get(getActivity()).updateCut(currFav);
+                }
+
                 currFav = cut;
 
                 //REPLACE THE PROFILE IMAGE AND DESCRIPTION WITH SELECTION
@@ -268,6 +275,8 @@ public class UserProfile extends Fragment {
                     );
                     mProfileImage.setImageBitmap(bm);
                 }
+
+                Shop.get(getActivity()).updateCut(cut);
 
 
             default:

@@ -18,6 +18,7 @@ import database.CutsDbSchema;
 public class Shop {
     private static Shop sShop;
     private Context mContext;
+
     private SQLiteDatabase mCutsDatabase;
     private SQLiteDatabase mApptDatabase;
 
@@ -179,7 +180,7 @@ public class Shop {
     public Cuts getFavorite() {
         CutsCursorWrapper cursor = queryCuts(
                 CutsDbSchema.CutsTable.Cols.FAVORITED + " = ?",
-                new String[] { "1" }
+                new String[] { "true" }
         );
 
         try {
@@ -207,6 +208,7 @@ public class Shop {
         //values.put(CutsDbSchema.CutsTable.Cols.DATE, cut.getmDate().getTime());
         //values.put(CutsDbSchema.CutsTable.Cols.TITLE, cut.getmTitle());
         values.put(CutsDbSchema.CutsTable.Cols.UUID, cut.getmId().toString());
+        values.put(CutsDbSchema.CutsTable.Cols.FAVORITED, cut.isFavorite());
 
         return values;
     }
