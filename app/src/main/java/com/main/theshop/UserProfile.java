@@ -6,8 +6,10 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -35,6 +37,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class UserProfile extends Fragment {
@@ -77,17 +80,18 @@ public class UserProfile extends Fragment {
         View view = inflater.inflate(
                 R.layout.profile, container, false);
 
-
-
         mProfileDescription = (TextView) view.findViewById(R.id.profile_text);
         mProfileImage = (ImageView)view.findViewById(R.id.profile_image);
 
-
+        //SCREEN MATH FOR PROFILE IMAGE
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenHeight = displayMetrics.heightPixels + getNavigationBarHeight();
+        Log.d("Screen Height", "SetMaxHeight = " + ((screenHeight/5)));
+        mProfileImage.setMaxHeight((screenHeight / 5));
 
          //SEARCH THROUGH THE CUTS DB AND FIND THE FAVORITED CUT AND LOAD IT
          //      STORE THE CURRENT FAVORITE CUT UUID FOR QUICK ACCESS ON NEW FAVORITE ITEM
-
-
         if(currFav != null){
             mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(currFav);
             mProfileDescription.setText(currFav.getmTitle());
@@ -95,7 +99,6 @@ public class UserProfile extends Fragment {
 
         if(mCutPhotoFile == null || !mCutPhotoFile.exists()) {
             mProfileImage.setImageDrawable(null);
-            //mCutsText.setText(mCut.getmId().toString());
         }
         else {
             Bitmap bm = PictureUtils.getScaledBitmap(
@@ -103,11 +106,6 @@ public class UserProfile extends Fragment {
             );
             mProfileImage.setImageBitmap(bm);
         }
-
-
-
-
-
 
         mApptRecycler = (RecyclerView)view.findViewById(R.id.appt_recycler);
         mApptRecycler.setLayoutManager(
@@ -172,7 +170,7 @@ public class UserProfile extends Fragment {
     /**     MENU METHODS    **/
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.profile_menu, menu);
 
@@ -191,7 +189,7 @@ public class UserProfile extends Fragment {
 
                 mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(newCut);
 
-                Uri uri = FileProvider.getUriForFile(getActivity(),
+                Uri uri = FileProvider.getUriForFile(Objects.requireNonNull(getActivity()),
                         "com.main.theshop.fileprovider",
                         mCutPhotoFile);
 
@@ -284,8 +282,7 @@ public class UserProfile extends Fragment {
         }
     }
 
-    //CUTS HELPER CLASSES FOR RECYCLERVIEW
-
+    /** CUTS HELPER CLASSES FOR RECYCLERVIEW  **/
     /** NOTES FOR CUTS RECYCLER
      *      REVERSE ORDER SO THE MOST RECENT CUTS ARE AT THE FRONT (done)
      *      FIND A WAY TO ADD A BOOKMARK TO ADD TO MAIN PROFILE IMAGE
@@ -300,12 +297,14 @@ public class UserProfile extends Fragment {
         public CutsHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.profile_cut_item, parent, false));
             mCutsImage = (ImageView)itemView.findViewById(R.id.cut_image);
+
+            /** WORK WITHOUT THE CUT DESCRIPTION FOR NOW    **/
             mCutsText = (TextView)itemView.findViewById(R.id.cut_text);
 
 
             itemView.setOnClickListener(this);
 
-            /** MAYBE ON LONG PRESS BRING UP A DELETE OPTION **/
+            /** LONG PRESS TO BRING UP A DELETE OPTION **/
             itemView.setOnCreateContextMenuListener(this);
         }
 
@@ -325,9 +324,7 @@ public class UserProfile extends Fragment {
                 );
                 mCutsImage.setImageBitmap(bm);
             }
-
             mCutsText.setText(mCut.getmId().toString());
-
         }
 
         @Override
@@ -337,15 +334,11 @@ public class UserProfile extends Fragment {
             startActivity(intent);
         }
 
-
-
-
         @Override
         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
             MenuInflater inflater = getActivity().getMenuInflater();
             inflater.inflate(R.menu.context_menu, contextMenu);
         }
-
     }
 
     private class CutsAdapter extends RecyclerView.Adapter<CutsHolder> {
@@ -354,7 +347,6 @@ public class UserProfile extends Fragment {
 
         public CutsAdapter(List<Cuts> cuts) {
             mCuts = cuts;
-
         }
 
         @Override
@@ -397,7 +389,10 @@ public class UserProfile extends Fragment {
         }
     }
 
-    //APPOINTMENT HELPER CLASSES FOR RECYCLERVIEW
+
+
+
+    /** APPOINTMENT HELPER CLASSES FOR RECYCLERVIEW **/
 
     private class ApptHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mApptsText;
@@ -417,7 +412,7 @@ public class UserProfile extends Fragment {
         @Override
         public void onClick(View view) {
             /**
-             ADD POP UP MENU FOR EITHER COMPLETING OR CANCELLING APPOINTMENT
+                POP UP MENU FOR EITHER COMPLETING OR CANCELLING APPOINTMENT
                 Completing = remove from ApptDatabase, then proceed to add photo to
                             profile RecyclerView
                 Cancelling = remove from ApptDatabase
@@ -461,6 +456,21 @@ public class UserProfile extends Fragment {
         }
     }
 
+
+    private int getNavigationBarHeight() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            DisplayMetrics metrics = new DisplayMetrics();
+            ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            int usableHeight = metrics.heightPixels;
+            ((Activity)getContext()).getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+            int realHeight = metrics.heightPixels;
+            if (realHeight > usableHeight)
+                return realHeight - usableHeight;
+            else
+                return 0;
+        }
+        return 0;
+    }
 
 
 

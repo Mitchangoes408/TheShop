@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +69,16 @@ public class CutFragment extends Fragment {
                 false);
 
         cutImage = (ImageView)v.findViewById(R.id.cut_image);
+
+        //PROGRAMMATICALLY SET IMAGE HEIGHT BASED ON SCREEN DIMENSIONS
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int screenHeight = displayMetrics.heightPixels + getNavigationBarHeight();
+        Log.d("Screen Height", "MaxHeight = " + (screenHeight));
+        Log.d("Screen Height", "SetMaxHeight = " + (3 * (screenHeight/5)));
+        cutImage.setMaxHeight(3 * (screenHeight / 5));
+
         if(mCutPhotoFile == null || !mCutPhotoFile.exists()) {
             cutImage.setImageDrawable(null);
         }
@@ -88,6 +101,21 @@ public class CutFragment extends Fragment {
         CutFragment fragment = new CutFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private int getNavigationBarHeight() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            DisplayMetrics metrics = new DisplayMetrics();
+            ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            int usableHeight = metrics.heightPixels;
+            ((Activity)getContext()).getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+            int realHeight = metrics.heightPixels;
+            if (realHeight > usableHeight)
+                return realHeight - usableHeight;
+            else
+                return 0;
+        }
+        return 0;
     }
 
 

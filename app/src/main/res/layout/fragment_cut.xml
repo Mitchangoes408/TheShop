@@ -9,10 +9,11 @@
         android:id="@+id/cut_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:scaleType="centerInside"
+        android:background="@color/white"
         android:cropToPadding="true"
-        android:background="@color/white" />
+        android:adjustViewBounds="true"
+        android:padding="15dp"
+        android:scaleType="centerInside" />
 
     <TextView
         android:id="@+id/cut_description"

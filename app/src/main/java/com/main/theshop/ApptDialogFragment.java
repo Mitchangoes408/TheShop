@@ -139,6 +139,8 @@ public class ApptDialogFragment extends DialogFragment {
               startActivityForResult(captureImage, REQUEST_PHOTO);
 
 
+              /**   ADD A WAY TO ADD CUT DETAILS AFTER PHOTO IS TAKEN **/
+
 
 
               //DELETE THE APPT

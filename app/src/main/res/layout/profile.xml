@@ -18,17 +18,20 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
+            <!-- FIND A DEFAULT SHOP IMAGE ON NEW STARTUP -->
             <ImageView
                 android:id="@+id/profile_image"
-                android:layout_width="95dp"
-                android:layout_height="125dp"
-                android:background="#696969" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#696969"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/fav_image" />
 
             <TextView
                 android:id="@+id/profile_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="User profile description"
+                android:text="@string/fav_description"
                 android:padding="10dp" />
         </LinearLayout>
 
@@ -44,23 +47,10 @@
                 android:padding="5dp"
                 android:text="@string/appointments_text" />
 
-            <!-- POSSIBLY REPLACE WITH APPTRECYCLERVIEW
-                <TextView
-                    android:id="@+id/upcoming_appointments"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:gravity="center"
-                    android:text="No scheduled appointments." />
-            -->
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/appt_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="40dp" />
-
-
-
 
         </LinearLayout>
 

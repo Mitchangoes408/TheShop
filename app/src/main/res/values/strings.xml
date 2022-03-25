@@ -8,4 +8,8 @@
     <string name="datepicker_text">Pick appointment date</string>
     <string name="cancel_appt">Cancel Appointment</string>
     <string name="complete_appt">Complete Appointment</string>
+    <string name="cut_description">Cut Description</string>
+    <string name="cut_image">Cut image</string>
+    <string name="fav_description">Favorited Cut Details</string>
+    <string name="fav_image">Favorited Cut Image</string>
 </resources>
