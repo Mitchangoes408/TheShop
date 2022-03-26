@@ -89,6 +89,7 @@ public class CutFragment extends Fragment {
             cutImage.setImageBitmap(bm);
         }
         cutText = (TextView)v.findViewById(R.id.cut_description);
+        cutText.setText(mCut.getCutDetails());
 
         return v;
     }

@@ -19,7 +19,7 @@ public class ApptBaseHelper extends SQLiteOpenHelper {
         database.execSQL("CREATE TABLE " + ApptTable.NAME +
                 "(" + "_id integer PRIMARY KEY AUTOINCREMENT," +
                 ApptTable.Cols.UUID + ", " +
-                ApptTable.Cols.TITLE + ", " +
+                ApptTable.Cols.DETAILS + ", " +
                 ApptTable.Cols.DATE + "," +
                 ApptTable.Cols.TYPE + ")"
         );
@@ -31,10 +31,4 @@ public class ApptBaseHelper extends SQLiteOpenHelper {
         //onCreate(database);
     }
 
-    public Integer deleteAppt(Integer id) {
-        SQLiteDatabase database = this.getWritableDatabase();
-        return database.delete("appointments",
-                "id = ? ",
-                new String[] { Integer.toString(id) });
-    }
 }

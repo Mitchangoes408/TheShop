@@ -18,14 +18,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -35,10 +32,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 public class UserProfile extends Fragment {
     //CRIME FRAGMENT
@@ -52,8 +47,8 @@ public class UserProfile extends Fragment {
     private static final String DIALOG_APPT = "DialogAppt";
     private static final String EXTRA_DIALOG = "com.main.theshop.dialog";
 
-    private ImageView mProfileImage;
-    private TextView mProfileDescription;
+    private ImageView mFavImage;
+    private TextView mFavDetails;
     private RecyclerView mCutsRecycler;
     private RecyclerView mApptRecycler;
     private CutsAdapter mAdapter;
@@ -80,32 +75,37 @@ public class UserProfile extends Fragment {
         View view = inflater.inflate(
                 R.layout.profile, container, false);
 
-        mProfileDescription = (TextView) view.findViewById(R.id.profile_text);
-        mProfileImage = (ImageView)view.findViewById(R.id.profile_image);
+        mFavDetails = (TextView) view.findViewById(R.id.profile_text);
+        mFavImage = (ImageView)view.findViewById(R.id.profile_image);
 
         //SCREEN MATH FOR PROFILE IMAGE
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenHeight = displayMetrics.heightPixels + getNavigationBarHeight();
         Log.d("Screen Height", "SetMaxHeight = " + ((screenHeight/5)));
-        mProfileImage.setMaxHeight((screenHeight / 5));
+        mFavImage.setMaxHeight((screenHeight / 5));
+
 
          //SEARCH THROUGH THE CUTS DB AND FIND THE FAVORITED CUT AND LOAD IT
          //      STORE THE CURRENT FAVORITE CUT UUID FOR QUICK ACCESS ON NEW FAVORITE ITEM
         if(currFav != null){
             mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(currFav);
-            mProfileDescription.setText(currFav.getmTitle());
+            StringBuilder stringBuilder = new StringBuilder("Cut Type: " + currFav.getCutType());
+            stringBuilder.append("\nAdditional Requests: " + currFav.getCutDetails());
+            mFavDetails.setText(stringBuilder);
         }
 
         if(mCutPhotoFile == null || !mCutPhotoFile.exists()) {
-            mProfileImage.setImageDrawable(null);
+            mFavImage.setImageDrawable(null);
         }
         else {
             Bitmap bm = PictureUtils.getScaledBitmap(
                     mCutPhotoFile.getPath(), getActivity()
             );
-            mProfileImage.setImageBitmap(bm);
+            mFavImage.setImageBitmap(bm);
+
         }
+
 
         mApptRecycler = (RecyclerView)view.findViewById(R.id.appt_recycler);
         mApptRecycler.setLayoutManager(
@@ -115,8 +115,6 @@ public class UserProfile extends Fragment {
 
         mCutsRecycler.setLayoutManager(
                 new GridLayoutManager(getActivity(), 3));
-
-
         //ATTEMPT FOR ONLONGCLICK
         registerForContextMenu(mCutsRecycler);
 
@@ -168,7 +166,6 @@ public class UserProfile extends Fragment {
 
 
     /**     MENU METHODS    **/
-
     @Override
     public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -252,26 +249,26 @@ public class UserProfile extends Fragment {
                 //ADD FAVORITE MARKER TO CUT
                 cut.setFavorite("true");
                 //REMOVE FAVORITE MARKER FROM CURRENT FAVORITE ITEM
-
                 if(currFav != null) {       //CHECK FOR WHEN NO CURRENT FAVORITE IS SET
                     currFav.setFavorite("false");
                     Shop.get(getActivity()).updateCut(currFav);
                 }
-
                 currFav = cut;
 
                 //REPLACE THE PROFILE IMAGE AND DESCRIPTION WITH SELECTION
                 mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(cut);
 
                 if(mCutPhotoFile == null || !mCutPhotoFile.exists()) {
-                    mProfileImage.setImageDrawable(null);
-                    //mCutsText.setText(mCut.getmId().toString());
+                    mFavImage.setImageDrawable(null);
                 }
                 else {
                     Bitmap bm = PictureUtils.getScaledBitmap(
                             mCutPhotoFile.getPath(), getActivity()
                     );
-                    mProfileImage.setImageBitmap(bm);
+                    mFavImage.setImageBitmap(bm);
+                    StringBuilder stringBuilder1 = new StringBuilder("Cut Type: " + currFav.getCutType());
+                    stringBuilder1.append("\nAdditional Requests: " + currFav.getCutDetails());
+                    mFavDetails.setText(stringBuilder1);
                 }
 
                 Shop.get(getActivity()).updateCut(cut);
@@ -407,6 +404,7 @@ public class UserProfile extends Fragment {
         public void bind(Appointments appointment) {
             mAppointment = appointment;
             mApptsText.setText(mAppointment.getScheduledDate().toString());
+
         }
 
         @Override

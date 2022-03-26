@@ -23,6 +23,8 @@
                 android:id="@+id/profile_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="90dp"
+                android:minHeight="125dp"
                 android:background="#696969"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/fav_image" />

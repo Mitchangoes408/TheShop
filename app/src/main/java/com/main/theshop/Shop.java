@@ -195,8 +195,6 @@ public class Shop {
         }
     }
 
-
-
     public File getPhotoFile(Cuts cut) {
         File filesDir = mContext.getFilesDir();
         return new File(filesDir, cut.getPhotoFileName());
@@ -206,9 +204,10 @@ public class Shop {
         ContentValues values = new ContentValues();
 
         //values.put(CutsDbSchema.CutsTable.Cols.DATE, cut.getmDate().getTime());
-        //values.put(CutsDbSchema.CutsTable.Cols.TITLE, cut.getmTitle());
+        values.put(CutsDbSchema.CutsTable.Cols.DETAILS, cut.getCutDetails());
         values.put(CutsDbSchema.CutsTable.Cols.UUID, cut.getmId().toString());
         values.put(CutsDbSchema.CutsTable.Cols.FAVORITED, cut.isFavorite());
+        values.put(CutsDbSchema.CutsTable.Cols.TYPE, cut.getCutType());
 
         return values;
     }
@@ -219,7 +218,7 @@ public class Shop {
         //ADDS to VALUES
         values.put(ApptDbSchema.ApptTable.Cols.UUID, appointment.getApptUUID().toString());
         values.put(ApptDbSchema.ApptTable.Cols.DATE, appointment.getScheduledDate().getTime());
-        values.put(ApptDbSchema.ApptTable.Cols.TITLE, appointment.getTitle());
+        values.put(ApptDbSchema.ApptTable.Cols.DETAILS, appointment.getApptDetails());
         values.put(ApptDbSchema.ApptTable.Cols.TYPE, appointment.getCutType());
 
         return values;

@@ -8,6 +8,8 @@ public class Cuts {
     private String mTitle;      //cut description
     private Date mDate;         //date of cut
     private String isFavorite;
+    private String cutDetails;
+    private String cutType;
 
     public Cuts() {
         isFavorite = "false";
@@ -50,5 +52,21 @@ public class Cuts {
 
     public void setmDate(Date mDate) {
         this.mDate = mDate;
+    }
+
+    public String getCutDetails() {
+        return cutDetails;
+    }
+
+    public void setCutDetails(String cutDetails) {
+        this.cutDetails = cutDetails;
+    }
+
+    public String getCutType() {
+        return cutType;
+    }
+
+    public void setCutType(String cutType) {
+        this.cutType = cutType;
     }
 }

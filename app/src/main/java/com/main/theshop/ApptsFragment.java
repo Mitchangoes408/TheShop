@@ -3,6 +3,8 @@ package com.main.theshop;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +29,7 @@ public class ApptsFragment extends Fragment {
 
     private Appointments appointment;
 
-    private TextView apptTypeText;
+    private EditText apptDetails;
     private Spinner apptSpinner;
     private Button datePickerButton;
     private Button submitApptBtn;
@@ -39,9 +42,6 @@ public class ApptsFragment extends Fragment {
         UUID apptID = (UUID)getArguments().getSerializable(ARG_APPT_ID);
         Log.d("NEW APPT ", "Fragment onCreate UUID: " + apptID);
         appointment = Shop.get(getActivity()).getAppt(apptID);
-
-        //get photofile maybe?
-            //for attaching cut pictures
 
     }
 
@@ -73,15 +73,37 @@ public class ApptsFragment extends Fragment {
                 false
         );
 
-        apptTypeText= (TextView) v.findViewById(R.id.appt_text);
-
+        /** Cut Type Sellection **/
         apptSpinner = (Spinner)v.findViewById(R.id.cut_type_menu);
+
         //SPINNER DETAILS
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.cut_style, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         apptSpinner.setAdapter(adapter);
 
+        /** Additional Details **/
+        apptDetails= (EditText) v.findViewById(R.id.appointment_details);
+        apptDetails.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                appointment.setApptDetails(charSequence.toString());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        /** Appointment Time Selection **/
         datePickerButton = (Button) v.findViewById(R.id.date_picker_button);
+
         //DATE PICKER DETAILS
         datePickerButton.setOnClickListener(new View.OnClickListener() {
 
@@ -97,9 +119,9 @@ public class ApptsFragment extends Fragment {
 
         });
 
+        /** Submit Appointment Details **/
         submitApptBtn = (Button) v.findViewById(R.id.schedule_appt_btn);
         //SUBMIT BUTTON DETAILS
-
         submitApptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,11 +137,6 @@ public class ApptsFragment extends Fragment {
             }
 
          });
-
-
-
-
-
 
         return v;
     }
