@@ -9,16 +9,26 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import java.io.File;
 import java.util.Date;
 import java.util.UUID;
+
+/** CUT FRAGMENT NOTES
+ *      ADD A MENU OPTION TO EDIT THE CUT DETAILS
+ *      FIGURE OUT THE GIF DISPLAY
+ *
+ */
 
 public class CutFragment extends Fragment {
     //request codes:
@@ -35,12 +45,16 @@ public class CutFragment extends Fragment {
 
     private static final String ARG_CUT_ID = "cut_id";
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID cutId = (UUID)getArguments().getSerializable(ARG_CUT_ID);
         mCut = Shop.get(getActivity()).getCut(cutId);
         mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(mCut);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -89,9 +103,36 @@ public class CutFragment extends Fragment {
             cutImage.setImageBitmap(bm);
         }
         cutText = (TextView)v.findViewById(R.id.cut_description);
-        cutText.setText(mCut.getCutDetails());
+        StringBuilder stringBuilder = new StringBuilder("Cut Type: " + mCut.getCutType());
+        stringBuilder.append("\nAdditional Requests: " + mCut.getCutDetails());
+        cutText.setText(stringBuilder);
 
         return v;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.image_menu, menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.edit_details:
+                /** DISPLAY A EDITTEXT TO CHANGE THE CUT DETAILS
+                 *      MAYBE CHANGE TEXTVIEW => EDITTEXT
+                 *      ADD A WAY TO CHANGE THE CURRENT ITEM IMAGE
+                 *          EITHER THROUGH BUTTON OR LONG PRESS
+                 **/
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
 

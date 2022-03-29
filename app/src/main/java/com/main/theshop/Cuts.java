@@ -6,7 +6,7 @@ import java.util.UUID;
 public class Cuts {
     private UUID mId;           //holds cut ID
     private String mTitle;      //cut description
-    private Date mDate;         //date of cut
+    private Date completedDate;         //date of cut
     private String isFavorite;
     private String cutDetails;
     private String cutType;
@@ -19,7 +19,7 @@ public class Cuts {
     public Cuts(UUID id) {
         mId = id;
         isFavorite = "false";
-        mDate = new Date();
+        completedDate = new Date();
     }
 
     public String isFavorite() {
@@ -46,12 +46,12 @@ public class Cuts {
         this.mTitle = mTitle;
     }
 
-    public Date getmDate() {
-        return mDate;
+    public Date getCompletedDate() {
+        return completedDate;
     }
 
-    public void setmDate(Date mDate) {
-        this.mDate = mDate;
+    public void setCompletedDate(Date completedDate) {
+        this.completedDate = completedDate;
     }
 
     public String getCutDetails() {

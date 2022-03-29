@@ -130,6 +130,7 @@ public class ApptsFragment extends Fragment {
 
                 String cutType = apptSpinner.getSelectedItem().toString();
                 appointment.setCutType(cutType);
+                Shop.get(getActivity()).updateAppt(appointment);
                 Toast toast = Toast.makeText(getContext(), "Scheduled " + cutType, Toast.LENGTH_LONG);
                 toast.show();
                 getActivity().onBackPressed();

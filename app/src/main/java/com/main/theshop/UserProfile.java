@@ -284,6 +284,8 @@ public class UserProfile extends Fragment {
      *      REVERSE ORDER SO THE MOST RECENT CUTS ARE AT THE FRONT (done)
      *      FIND A WAY TO ADD A BOOKMARK TO ADD TO MAIN PROFILE IMAGE
      *      (NOT AT IMPORTANT RN) FIGURE OUT SOME FORMATTING MATH TO MAKE IMAGES FIT NICELY ON ALL DEVICES
+     *
+     *      EVERNTUALLY FIND A WAY TO ADD A GIF OF THE PROFILE
      */
 
     private class CutsHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {

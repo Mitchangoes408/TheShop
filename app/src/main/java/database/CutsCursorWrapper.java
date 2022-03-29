@@ -22,7 +22,7 @@ public class CutsCursorWrapper extends CursorWrapper{
 
         Cuts cut = new Cuts(UUID.fromString(uuidString));
         cut.setCutDetails(details);
-        cut.setmDate(new Date(date));
+        cut.setCompletedDate(new Date(date));
         cut.setFavorite(isFavorite);
         cut.setCutType(type);
 

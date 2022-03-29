@@ -10,20 +10,16 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -108,7 +104,6 @@ public class ApptDialogFragment extends DialogFragment {
         //Image Capture Intent
         final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        //PackageManager pm = getActivity().getPackageManager();
         completeAppt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,8 +114,11 @@ public class ApptDialogFragment extends DialogFragment {
                 //CREATE THE CUT
                 Cuts newCut = new Cuts(apptId);
                 Log.d("PHOTO", "newCut UUID: " + newCut.getmId().toString());
+
+                //ADD ALL THE DETAILS
                 newCut.setCutDetails(Shop.get(getActivity()).getAppt(apptId).getApptDetails());
                 newCut.setCutType(Shop.get(getActivity()).getAppt(apptId).getCutType());
+                newCut.setCompletedDate(new Date());
                 Shop.get(getActivity()).addCut(newCut);
 
                 //TAKE PICTURE
@@ -148,7 +146,6 @@ public class ApptDialogFragment extends DialogFragment {
 
 
                 /**   ADD A WAY TO ADD CUT DETAILS AFTER PHOTO IS TAKEN **/
-
 
 
                 //DELETE THE APPT

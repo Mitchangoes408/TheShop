@@ -203,7 +203,7 @@ public class Shop {
     private static ContentValues getContentValues(Cuts cut) {
         ContentValues values = new ContentValues();
 
-        //values.put(CutsDbSchema.CutsTable.Cols.DATE, cut.getmDate().getTime());
+        values.put(CutsDbSchema.CutsTable.Cols.DATE, cut.getCompletedDate().getTime());
         values.put(CutsDbSchema.CutsTable.Cols.DETAILS, cut.getCutDetails());
         values.put(CutsDbSchema.CutsTable.Cols.UUID, cut.getmId().toString());
         values.put(CutsDbSchema.CutsTable.Cols.FAVORITED, cut.isFavorite());
