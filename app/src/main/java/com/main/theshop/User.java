@@ -6,7 +6,11 @@ public class User {
     private String mUserName, fullName, email, phoneNumber;
     private String mPassword;
     private UUID id;
-    private Boolean isClient;
+    private String acctType;
+
+    public User(UUID uuid) {
+        this.id = uuid;
+    }
 
     public User(String userName, String password, String fullName, String email, String phoneNumber, boolean userType) {
         this.mUserName = userName;
@@ -14,7 +18,6 @@ public class User {
         this.fullName = fullName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.isClient = userType;
         this.id = UUID.randomUUID();
     }
 
@@ -38,7 +41,6 @@ public class User {
         return this.id;
     }
 
-    public boolean getUserType() { return this.isClient; }
 
     public String getFullName() {
         return fullName;
@@ -62,5 +64,13 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getAcctType() {
+        return acctType;
+    }
+
+    public void setAcctType(String acctType) {
+        this.acctType = acctType;
     }
 }
