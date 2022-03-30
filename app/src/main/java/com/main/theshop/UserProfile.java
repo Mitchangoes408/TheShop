@@ -34,6 +34,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class UserProfile extends Fragment {
     // FRAGMENT
@@ -55,14 +56,23 @@ public class UserProfile extends Fragment {
     private ApptAdapter mApptAdapter;
     private Cuts currFav;
 
-
     private File mCutPhotoFile;
 
+    private UUID userId;
+    private User currUser;
+
+
+    public UserProfile(UUID userId) {
+        currUser = Shop.get(getActivity()).getUser(userId);
+    }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("UserProfile", "onCreate: UserId = " + currUser.getId());
+
+        Toast.makeText(getContext(), "Welcome " + currUser.getFullName(), Toast.LENGTH_SHORT);
 
         currFav = Shop.get(getActivity()).getFavorite();
         setHasOptionsMenu(true);

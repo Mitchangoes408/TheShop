@@ -46,6 +46,7 @@ public class RegistrationFragment extends Fragment {
     private static final String EXTRA_EMAIL = "email";
     private static final String EXTRA_PHONE = "phone";
     private static final String EXTRA_TYPE = "type";
+    private static final String EXTRA_USER_ID = "userId";
 
 
     @Override
@@ -163,6 +164,7 @@ public class RegistrationFragment extends Fragment {
                 Shop.get(getActivity()).addUser(user);
 
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+                intent.putExtra(EXTRA_USER_ID, user.getId());
                 startActivity(intent);
             }
         });

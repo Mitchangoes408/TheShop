@@ -3,6 +3,7 @@ package com.main.theshop;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import database.LoginDbSchema.LoginTable;
 
@@ -22,7 +23,10 @@ public class UserBaseHelper extends SQLiteOpenHelper {
                 LoginTable.Cols.UUID + ", " +
                 LoginTable.Cols.TYPE + ", " +
                 LoginTable.Cols.USERNAME + ", " +
-                LoginTable.Cols.PASSWORD + ")"
+                LoginTable.Cols.PASSWORD + ", " +
+                LoginTable.Cols.NAME + ", " +
+                LoginTable.Cols.EMAIL + ", " +
+                LoginTable.Cols.PHONE + ")"
         );
     }
 

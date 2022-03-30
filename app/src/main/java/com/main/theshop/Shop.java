@@ -227,10 +227,10 @@ public class Shop {
         }
     }
 
-    public User getUser(UUID id) {
+    public User getUser(UUID userId) {
         LoginCursorWrapper cursor = queryUsers(
                 LoginDbSchema.LoginTable.Cols.UUID + " = ?",
-                new String[] { id.toString() }
+                new String[] { userId.toString() }
         );
 
         try {
@@ -244,6 +244,26 @@ public class Shop {
             cursor.close();
         }
     }
+
+    public User getUser(String username, String password) {
+        LoginCursorWrapper cursor = queryUsers(
+                LoginDbSchema.LoginTable.Cols.USERNAME + " = ? AND " + LoginDbSchema.LoginTable.Cols.PASSWORD + " = ?",
+                new String[] { username, password }
+        );
+
+        try {
+            if(cursor.getCount() == 0)
+                return null;
+
+            cursor.moveToFirst();
+            return cursor.getUser();
+        }
+        finally {
+            cursor.close();
+        }
+    }
+
+
 
     public Cuts getFavorite() {
         CutsCursorWrapper cursor = queryCuts(
@@ -299,6 +319,9 @@ public class Shop {
         values.put(LoginDbSchema.LoginTable.Cols.USERNAME, user.getmUserName());
         values.put(LoginDbSchema.LoginTable.Cols.PASSWORD, user.getmPassword());
         values.put(LoginDbSchema.LoginTable.Cols.TYPE, user.getAcctType());
+        values.put(LoginDbSchema.LoginTable.Cols.NAME, user.getFullName());
+        values.put(LoginDbSchema.LoginTable.Cols.EMAIL, user.getEmail());
+        values.put(LoginDbSchema.LoginTable.Cols.PHONE, user.getPhoneNumber());
 
         return values;
     }

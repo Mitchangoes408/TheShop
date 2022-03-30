@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ public class LoginFragment extends Fragment {
     private EditText username, password;
 
     private String usernameText, passwordText;
+
+    private static final String EXTRA_USER_ID = "userId";
 
 
     @Override
@@ -82,6 +85,24 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //verify with database that login information is valid then bring to HOMEPAGE
+                /**
+                 *  TAKE THE USERNAME AND PASSWORD
+                 *  CHECK IT AGAINST THE DATABASE
+                 *  IF BOTH MATCH, RETRIEVE THE UUID
+                 *  FIGURE OUT A WAY TO PASS THAT OR SET IT FOR THE HOMESCREEN
+                 */
+                User user = Shop.get(getActivity()).getUser(usernameText, passwordText);
+
+                if(user != null) {
+                    Intent intent = new Intent(getContext(),
+                            UserProfileActivity.class);
+                    Log.d("Login Screen", "Starting UserProfileActivity");
+                    intent.putExtra(EXTRA_USER_ID, user.getId());
+                    Log.d("Login Screen", "UserId = " + user.getId());
+                    startActivity(intent);
+
+                }
+                /** DISPLAY ERROR DIALOG/TOAST IF CREDENTIALS DONT MATCH **/
 
             }
         });
@@ -90,19 +111,16 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //Open up a form to create new user
+                //
+                // create user
+                ////pop up form for: USERNAME, PASSWORD, NAME, PHONE, EMAIL
+
                 RegistrationFragment registrationFragment = RegistrationFragment.newInstance();
                 FragmentManager fragmentManager = getFragmentManager();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(R.id.fragment_container, registrationFragment)
                         .commit();
-
-
-                //create user
-                //pop up form for: USERNAME, PASSWORD, NAME, PHONE, EMAIL
-
-
-                //add user to database
             }
         });
 

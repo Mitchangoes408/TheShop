@@ -17,11 +17,18 @@ public class LoginCursorWrapper extends CursorWrapper {
         String userName = getString(getColumnIndex(LoginDbSchema.LoginTable.Cols.USERNAME));
         String password = getString(getColumnIndex(LoginDbSchema.LoginTable.Cols.PASSWORD));
         String acctType = getString(getColumnIndex(LoginDbSchema.LoginTable.Cols.TYPE));
+        String fullName = getString(getColumnIndex(LoginDbSchema.LoginTable.Cols.NAME));
+        String email = getString(getColumnIndex(LoginDbSchema.LoginTable.Cols.EMAIL));
+        String phone = getString(getColumnIndex(LoginDbSchema.LoginTable.Cols.PHONE));
+
 
         User user = new User(UUID.fromString(uuidString));
         user.setmUserName(userName);
         user.setmPassword(password);
         user.setAcctType(acctType);
+        user.setFullName(fullName);
+        user.setEmail(email);
+        user.setPhoneNumber(phone);
 
         return user;
     }
