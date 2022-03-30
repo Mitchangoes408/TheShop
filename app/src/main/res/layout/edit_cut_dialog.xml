@@ -1,0 +1,38 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/appt_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/appointment_type" />
+
+        <Spinner
+            android:id="@+id/cut_type_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/cut_styles_menu" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/appointment_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/appointment_hint"
+        android:inputType="textMultiLine"
+        android:textColorHint="#757575"
+        android:importantForAutofill="no" />
+
+
+</LinearLayout>

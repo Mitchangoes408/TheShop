@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.io.File;
 import java.util.Date;
@@ -34,6 +35,7 @@ public class CutFragment extends Fragment {
     //request codes:
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_PHOTO = 1;
+    private static final int REQUEST_EDIT = 2;
 
     private Cuts mCut;
 
@@ -44,6 +46,11 @@ public class CutFragment extends Fragment {
     private File mCutPhotoFile;
 
     private static final String ARG_CUT_ID = "cut_id";
+    private static final String DIALOG_EDIT = "DialogEdit";
+
+    private static final String EXTRA_DIALOG = "com.main.theshop.dialog";
+    private static final String EXTRA_TYPE = "type";
+    private static final String EXTRA_DETAILS = "details";
 
 
 
@@ -67,6 +74,18 @@ public class CutFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != Activity.RESULT_OK)
             return;
+
+        if(requestCode == REQUEST_EDIT) {
+            if(data.getSerializableExtra(EXTRA_TYPE) != null || data.getSerializableExtra(EXTRA_DETAILS) != null) {
+                mCut.setCutType(data.getSerializableExtra(EXTRA_TYPE).toString());
+                mCut.setCutDetails(data.getSerializableExtra(EXTRA_DETAILS).toString());
+
+                StringBuilder stringBuilder = new StringBuilder("Cut Type: " + mCut.getCutType());
+                stringBuilder.append("\nAdditional Requests: " + mCut.getCutDetails());
+                cutText.setText(stringBuilder);
+            }
+            Shop.get(getActivity()).updateCut(mCut);
+        }
     }
 
     /*****************************
@@ -126,6 +145,10 @@ public class CutFragment extends Fragment {
                  *      ADD A WAY TO CHANGE THE CURRENT ITEM IMAGE
                  *          EITHER THROUGH BUTTON OR LONG PRESS
                  **/
+                FragmentManager fragmentManager = getFragmentManager();
+                CutDialogFragment dialogFragment = CutDialogFragment.newInstance(mCut);
+                dialogFragment.setTargetFragment(CutFragment.this, REQUEST_EDIT);
+                dialogFragment.show(fragmentManager, DIALOG_EDIT);
 
                 return true;
 
