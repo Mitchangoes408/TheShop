@@ -14,6 +14,8 @@ import database.ApptCursorWrapper;
 import database.ApptDbSchema;
 import database.CutsCursorWrapper;
 import database.CutsDbSchema;
+import database.LoginCursorWrapper;
+import database.LoginDbSchema;
 
 public class Shop {
     private static Shop sShop;
@@ -21,12 +23,13 @@ public class Shop {
 
     private SQLiteDatabase mCutsDatabase;
     private SQLiteDatabase mApptDatabase;
+    private SQLiteDatabase mUserDatabase;
 
     private Shop(Context context) {
         mContext = context.getApplicationContext();
         mApptDatabase = new ApptBaseHelper(mContext).getWritableDatabase();
         mCutsDatabase = new CutBaseHelper(mContext).getWritableDatabase();
-
+        mUserDatabase = new UserBaseHelper(mContext).getWritableDatabase();
     }
 
     public static Shop get(Context context) {
@@ -51,6 +54,14 @@ public class Shop {
                 values);
     }
 
+    public void addUser(User user) {
+        ContentValues values = getContentValues(user);
+        mUserDatabase.insert(
+                LoginDbSchema.LoginTable.NAME,
+                null,
+                values);
+    }
+
     public void deleteCut(Cuts cut) {
         UUID cutId = cut.getmId();
         mCutsDatabase.delete(
@@ -70,6 +81,14 @@ public class Shop {
         );
 
         /** SHOULD DELETE FROM LIST<APPTS> AS WELL; **/
+    }
+
+    public void deleteUser(UUID userId) {
+        mUserDatabase.delete(
+                LoginDbSchema.LoginTable.NAME,
+                LoginDbSchema.LoginTable.Cols.UUID + " = ? ",
+                new String[] { userId.toString() }
+        );
     }
 
 
@@ -96,6 +115,18 @@ public class Shop {
                 ApptDbSchema.ApptTable.NAME,
                 values,
                 ApptDbSchema.ApptTable.Cols.UUID + " = ?",
+                new String[] { uuidString }
+        );
+    }
+
+    public void updateUser(User user) {
+        String uuidString = user.getId().toString();
+        ContentValues values = getContentValues(user);
+
+        mUserDatabase.update(
+                LoginDbSchema.LoginTable.NAME,
+                values,
+                LoginDbSchema.LoginTable.Cols.UUID + " = ?",
                 new String[] { uuidString }
         );
     }
@@ -141,6 +172,25 @@ public class Shop {
         return appointments;
     }
 
+    public List<User> getUsers() {
+        List<User> users = new ArrayList<>();
+
+        LoginCursorWrapper cursor = queryUsers(null, null);
+
+        try {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                users.add(cursor.getUser());
+                cursor.moveToNext();
+            }
+        }
+        finally {
+            cursor.close();
+        }
+
+        return users;
+    }
+
 
     public Cuts getCut(UUID id) {
         CutsCursorWrapper cursor = queryCuts(CutsDbSchema.CutsTable.Cols.UUID + " = ?",
@@ -171,6 +221,24 @@ public class Shop {
 
             cursor.moveToFirst();
             return cursor.getAppt();
+        }
+        finally {
+            cursor.close();
+        }
+    }
+
+    public User getUser(UUID id) {
+        LoginCursorWrapper cursor = queryUsers(
+                LoginDbSchema.LoginTable.Cols.UUID + " = ?",
+                new String[] { id.toString() }
+        );
+
+        try {
+            if(cursor.getCount() == 0)
+                return null;
+
+            cursor.moveToFirst();
+            return cursor.getUser();
         }
         finally {
             cursor.close();
@@ -224,6 +292,17 @@ public class Shop {
         return values;
     }
 
+    private static ContentValues getContentValues(User user) {
+        ContentValues values = new ContentValues();
+
+        values.put(LoginDbSchema.LoginTable.Cols.UUID, user.getId().toString());
+        values.put(LoginDbSchema.LoginTable.Cols.USERNAME, user.getmUserName());
+        values.put(LoginDbSchema.LoginTable.Cols.PASSWORD, user.getmPassword());
+        values.put(LoginDbSchema.LoginTable.Cols.TYPE, user.getAcctType());
+
+        return values;
+    }
+
     private CutsCursorWrapper queryCuts(String whereClause, String[] whereArgs) {
         Cursor cursor = mCutsDatabase.query(
                 CutsDbSchema.CutsTable.NAME,
@@ -250,6 +329,20 @@ public class Shop {
         );
 
         return new ApptCursorWrapper(cursor);
+    }
+
+    private LoginCursorWrapper queryUsers(String whereClause, String[] whereArgs) {
+        Cursor cursor = mUserDatabase.query(
+                LoginDbSchema.LoginTable.NAME,
+                null,
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                null
+        );
+
+        return new LoginCursorWrapper(cursor);
     }
 
 }

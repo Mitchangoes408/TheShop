@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class UserProfile extends Fragment {
-    //CRIME FRAGMENT
+    // FRAGMENT
     private static final int REQUEST_DIALOG = 0;
     private static final int REQUEST_PHOTO = 1;
 
@@ -467,7 +467,5 @@ public class UserProfile extends Fragment {
         }
         return 0;
     }
-
-
 
 }

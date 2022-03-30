@@ -12,12 +12,13 @@ public class User {
         this.id = uuid;
     }
 
-    public User(String userName, String password, String fullName, String email, String phoneNumber, boolean userType) {
+    public User(String userName, String password, String fullName, String email, String phoneNumber, String acctType) {
         this.mUserName = userName;
         this.mPassword = password;
         this.fullName = fullName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.acctType = acctType;
         this.id = UUID.randomUUID();
     }
 

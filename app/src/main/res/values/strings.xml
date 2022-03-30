@@ -15,4 +15,6 @@
     <string name="appointment_hint">Additional appointment details...\ni.e. High fade, Comb over, etc.</string>
     <string name="cut_styles_menu">Cut Styles</string>
     <string name="appointment_type">Appointment type:</string>
+    <string name="barber">Barber</string>
+    <string name="client">Client</string>
 </resources>
