@@ -96,9 +96,9 @@ public class LoginFragment extends Fragment {
                 if(user != null) {
                     Intent intent = new Intent(getContext(),
                             UserProfileActivity.class);
-                    Log.d("Login Screen", "Starting UserProfileActivity");
-                    intent.putExtra(EXTRA_USER_ID, user.getId());
-                    Log.d("Login Screen", "UserId = " + user.getId());
+                    Log.d("LoginFragment", "Starting UserProfileActivity");
+                    Shop.get(getActivity()).setCurrUser(user.getId());
+                    Log.d("LoginFragment", "UserId = " + user.getId());
                     startActivity(intent);
 
                 }

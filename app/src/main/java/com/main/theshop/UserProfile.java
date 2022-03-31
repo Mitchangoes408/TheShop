@@ -58,23 +58,10 @@ public class UserProfile extends Fragment {
 
     private File mCutPhotoFile;
 
-    private UUID userId;
-    private User currUser;
-
-
-    public UserProfile(UUID userId) {
-        currUser = Shop.get(getActivity()).getUser(userId);
-    }
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("UserProfile", "onCreate: UserId = " + currUser.getId());
-
-        Toast.makeText(getContext(), "Welcome " + currUser.getFullName(), Toast.LENGTH_SHORT);
-
-        currFav = Shop.get(getActivity()).getFavorite();
+        Log.d("UserProfile", "onCreate: currUserId = " + Shop.get(getActivity()).getCurrUserId().toString());
         setHasOptionsMenu(true);
     }
 

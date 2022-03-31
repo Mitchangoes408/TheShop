@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -153,7 +154,9 @@ public class RegistrationFragment extends Fragment {
             }
         });
 
+        /** MAYBE CHANGE SWITCH TO ANOTHER USER SELECTION TYPE **/
         accountType = (Switch) v.findViewById(R.id.account_type_switch);
+
 
 
         submitBtn = (Button) v.findViewById(R.id.submit_btn);
@@ -162,9 +165,10 @@ public class RegistrationFragment extends Fragment {
             public void onClick(View view) {
                 user = new User(username, password, fullName, email, phone, acctType);
                 Shop.get(getActivity()).addUser(user);
+                Log.d("RegistrationFragment", "onSubmit: currUserId = " + user.getId().toString());
+                Shop.get(getActivity()).setCurrUser(user.getId());
 
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
-                intent.putExtra(EXTRA_USER_ID, user.getId());
                 startActivity(intent);
             }
         });

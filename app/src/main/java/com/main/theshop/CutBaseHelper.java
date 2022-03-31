@@ -29,14 +29,13 @@ public class CutBaseHelper extends SQLiteOpenHelper {
                 CutsTable.Cols.DETAILS + ", " +
                 CutsTable.Cols.DATE + ", " +
                 CutsTable.Cols.FAVORITED + ", " +
-                CutsTable.Cols.TYPE + ")"
+                CutsTable.Cols.TYPE + ", " +
+                CutsTable.Cols.ACCT_ID + ")"
         );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
 
-        //database.execSQL("DROP TABLE IF EXISTS " + "cuts");
-        //onCreate(database);
     }
 }

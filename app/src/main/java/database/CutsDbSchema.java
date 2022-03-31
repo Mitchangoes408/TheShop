@@ -12,6 +12,7 @@ public class CutsDbSchema {
             public static final String DATE = "date_completed";
             public static final String FAVORITED = "favorite";
             public static final String TYPE = "type";
+            public static final String ACCT_ID = "acct_id";
         }
     }
 }

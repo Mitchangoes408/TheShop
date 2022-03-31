@@ -21,6 +21,8 @@ public class Shop {
     private static Shop sShop;
     private Context mContext;
 
+    private static UUID currUserId;
+
     private SQLiteDatabase mCutsDatabase;
     private SQLiteDatabase mApptDatabase;
     private SQLiteDatabase mUserDatabase;
@@ -134,9 +136,18 @@ public class Shop {
     public List<Cuts> getCuts() {
         List<Cuts> cuts = new ArrayList<>();
 
+        /** GETS ALL THE CUTS IN DB
         CutsCursorWrapper cursor = queryCuts(
                 null,
                 null
+        );
+
+         */
+
+        /** ONLY NEED ACCOUNT SPECIFIC CUTS **/
+        CutsCursorWrapper cursor = queryCuts(
+                CutsDbSchema.CutsTable.Cols.ACCT_ID + " = ?",
+                new String[] { currUserId.toString() }
         );
 
         try {
@@ -263,6 +274,16 @@ public class Shop {
         }
     }
 
+    public void setCurrUser(UUID userId) {
+        currUserId = userId;
+    }
+
+    public UUID getCurrUserId() {
+        return currUserId;
+    }
+
+
+
 
 
     public Cuts getFavorite() {
@@ -296,6 +317,7 @@ public class Shop {
         values.put(CutsDbSchema.CutsTable.Cols.UUID, cut.getmId().toString());
         values.put(CutsDbSchema.CutsTable.Cols.FAVORITED, cut.isFavorite());
         values.put(CutsDbSchema.CutsTable.Cols.TYPE, cut.getCutType());
+        values.put(CutsDbSchema.CutsTable.Cols.ACCT_ID, currUserId.toString());
 
         return values;
     }

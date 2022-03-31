@@ -10,10 +10,12 @@ public class Cuts {
     private String isFavorite;
     private String cutDetails;
     private String cutType;
+    private UUID acctId;
 
     public Cuts() {
         isFavorite = "false";
         this.mId = UUID.randomUUID();
+        completedDate = new Date();
     }
 
     public Cuts(UUID id) {
@@ -68,5 +70,13 @@ public class Cuts {
 
     public void setCutType(String cutType) {
         this.cutType = cutType;
+    }
+
+    public UUID getAcctId() {
+        return acctId;
+    }
+
+    public void setAcctId(UUID acctId) {
+        this.acctId = acctId;
     }
 }
