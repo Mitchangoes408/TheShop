@@ -11,6 +11,7 @@ public class ApptDbSchema {
             public static final String DATE = "date_scheduled";
             public static final String TYPE = "type";
             public static final String DETAILS = "details";
+            public static final String USER_ID = "user_id";
         }
     }
 

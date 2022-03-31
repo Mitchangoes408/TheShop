@@ -136,15 +136,9 @@ public class Shop {
     public List<Cuts> getCuts() {
         List<Cuts> cuts = new ArrayList<>();
 
-        /** GETS ALL THE CUTS IN DB
-        CutsCursorWrapper cursor = queryCuts(
-                null,
-                null
-        );
-
-         */
-
-        /** ONLY NEED ACCOUNT SPECIFIC CUTS **/
+        /** ONLY NEED ACCOUNT SPECIFIC CUTS
+         *      NULL ARGS GET THE WHOLE LIST
+         * **/
         CutsCursorWrapper cursor = queryCuts(
                 CutsDbSchema.CutsTable.Cols.ACCT_ID + " = ?",
                 new String[] { currUserId.toString() }
@@ -167,7 +161,9 @@ public class Shop {
     public List<Appointments> getAppts() {
         List<Appointments> appointments = new ArrayList<>();
 
-        ApptCursorWrapper cursor = queryAppts(null, null);
+        ApptCursorWrapper cursor = queryAppts(
+                ApptDbSchema.ApptTable.Cols.USER_ID + " = ?",
+                new String[] { currUserId.toString() } );
 
         try {
             cursor.moveToFirst();
@@ -330,6 +326,7 @@ public class Shop {
         values.put(ApptDbSchema.ApptTable.Cols.DATE, appointment.getScheduledDate().getTime());
         values.put(ApptDbSchema.ApptTable.Cols.DETAILS, appointment.getApptDetails());
         values.put(ApptDbSchema.ApptTable.Cols.TYPE, appointment.getCutType());
+        values.put(ApptDbSchema.ApptTable.Cols.USER_ID, currUserId.toString());
 
         return values;
     }

@@ -8,6 +8,7 @@ public class Appointments {
     private Date scheduledDate;
     private String apptDetails;
     private UUID apptUUID;
+    private UUID userId;
 
     public Appointments() {
 
@@ -48,5 +49,13 @@ public class Appointments {
 
     public void setApptDetails(String apptDetails) {
         this.apptDetails = apptDetails;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 }

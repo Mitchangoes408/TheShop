@@ -21,7 +21,8 @@ public class ApptBaseHelper extends SQLiteOpenHelper {
                 ApptTable.Cols.UUID + ", " +
                 ApptTable.Cols.DETAILS + ", " +
                 ApptTable.Cols.DATE + "," +
-                ApptTable.Cols.TYPE + ")"
+                ApptTable.Cols.TYPE + "," +
+                ApptTable.Cols.USER_ID + ")"
         );
     }
 
