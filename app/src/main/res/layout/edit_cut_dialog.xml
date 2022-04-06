@@ -16,43 +16,23 @@
             android:id="@+id/appt_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Appointment type: " />
+            android:text="@string/appointment_type" />
 
         <Spinner
             android:id="@+id/cut_type_menu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/cut_styles_menu" />
     </LinearLayout>
 
     <EditText
         android:id="@+id/appointment_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/appointment_hint"
         android:inputType="textMultiLine"
-        android:hint="@string/appointment_hint" />
-
-    <Button
-        android:id="@+id/date_picker_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:background="@color/light_grey"
-        android:text="@string/datepicker_text"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="15dp">
-    <Button
-        android:id="@+id/schedule_appt_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Schedule appointment" />
-    </LinearLayout>
+        android:textColorHint="#757575"
+        android:importantForAutofill="no" />
 
 
 </LinearLayout>

@@ -15,12 +15,18 @@ public class CutsCursorWrapper extends CursorWrapper{
 
     public Cuts getCut() {
         String uuidString = getString(getColumnIndex(CutsDbSchema.CutsTable.Cols.UUID));
-        String title = getString(getColumnIndex(CutsDbSchema.CutsTable.Cols.TITLE));
+        String details = getString(getColumnIndex(CutsDbSchema.CutsTable.Cols.DETAILS));
         long date = getLong(getColumnIndex(CutsDbSchema.CutsTable.Cols.DATE));
+        String isFavorite = getString(getColumnIndex(CutsDbSchema.CutsTable.Cols.FAVORITED));
+        String type = getString(getColumnIndex(CutsDbSchema.CutsTable.Cols.TYPE));
+        String acctId = getString(getColumnIndex(CutsDbSchema.CutsTable.Cols.ACCT_ID));
 
         Cuts cut = new Cuts(UUID.fromString(uuidString));
-        cut.setmTitle(title);
-        cut.setmDate(new Date(date));
+        cut.setCutDetails(details);
+        cut.setCompletedDate(new Date(date));
+        cut.setFavorite(isFavorite);
+        cut.setCutType(type);
+        cut.setAcctId(UUID.fromString(acctId));
 
         return cut;
     }

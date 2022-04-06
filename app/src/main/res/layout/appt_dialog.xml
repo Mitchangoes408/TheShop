@@ -23,6 +23,15 @@
         android:gravity="center"
         android:text="Appointment Type" />
 
+    <TextView
+        android:id="@+id/appt_dialog_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="Appointment Details" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

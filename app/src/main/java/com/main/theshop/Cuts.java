@@ -6,15 +6,30 @@ import java.util.UUID;
 public class Cuts {
     private UUID mId;           //holds cut ID
     private String mTitle;      //cut description
-    private Date mDate;         //date of cut
+    private Date completedDate;         //date of cut
+    private String isFavorite;
+    private String cutDetails;
+    private String cutType;
+    private UUID acctId;
 
     public Cuts() {
+        isFavorite = "false";
         this.mId = UUID.randomUUID();
+        completedDate = new Date();
     }
 
     public Cuts(UUID id) {
         mId = id;
-        mDate = new Date();
+        isFavorite = "false";
+        completedDate = new Date();
+    }
+
+    public String isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(String favoriteVal) {
+        this.isFavorite = favoriteVal;
     }
 
     public UUID getmId() {
@@ -33,11 +48,35 @@ public class Cuts {
         this.mTitle = mTitle;
     }
 
-    public Date getmDate() {
-        return mDate;
+    public Date getCompletedDate() {
+        return completedDate;
     }
 
-    public void setmDate(Date mDate) {
-        this.mDate = mDate;
+    public void setCompletedDate(Date completedDate) {
+        this.completedDate = completedDate;
+    }
+
+    public String getCutDetails() {
+        return cutDetails;
+    }
+
+    public void setCutDetails(String cutDetails) {
+        this.cutDetails = cutDetails;
+    }
+
+    public String getCutType() {
+        return cutType;
+    }
+
+    public void setCutType(String cutType) {
+        this.cutType = cutType;
+    }
+
+    public UUID getAcctId() {
+        return acctId;
+    }
+
+    public void setAcctId(UUID acctId) {
+        this.acctId = acctId;
     }
 }

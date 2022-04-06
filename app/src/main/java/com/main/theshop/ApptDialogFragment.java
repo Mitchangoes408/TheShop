@@ -10,20 +10,16 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -34,6 +30,7 @@ public class ApptDialogFragment extends DialogFragment {
 
     private TextView apptDate;
     private TextView apptType;
+    private TextView apptDetails;
     private Button completeAppt;
     private Button cancelAppt;
     //private Button photoButton;
@@ -88,93 +85,104 @@ public class ApptDialogFragment extends DialogFragment {
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.appt_dialog, null);
 
-      apptDate = (TextView) v.findViewById(R.id.date_dialog_text);
-      apptDate.setText(Shop.get(getActivity()).getAppt(apptId).getScheduledDate().toString());
+        /** Appointment Date Display **/
+        apptDate = (TextView) v.findViewById(R.id.date_dialog_text);
+        apptDate.setText(Shop.get(getActivity()).getAppt(apptId).getScheduledDate().toString());
 
-      apptType = (TextView) v.findViewById(R.id.type_dialog_text);
-      apptType.setText(Shop.get(getActivity()).getAppt(apptId).getCutType());
+        /** Appointment Type Display **/
+        apptType = (TextView) v.findViewById(R.id.type_dialog_text);
+        apptType.setText(Shop.get(getActivity()).getAppt(apptId).getCutType());
 
-      completeAppt = (Button) v.findViewById(R.id.complete_appt_btn);
-      //image capture intent
-      final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        /** Appointment Detail Display **/
+        apptDetails = (TextView) v.findViewById(R.id.appt_dialog_details);
+        StringBuilder stringBuilder = new StringBuilder("Additional details: ");
+        stringBuilder.append(Shop.get(getActivity()).getAppt(apptId).getApptDetails());
+        apptDetails.setText(stringBuilder);
 
-      PackageManager pm = getActivity().getPackageManager();
-      //Is there storage for picture
-      //boolean canTakePhoto = mCutPhotoFile != null && captureImage.resolveActivity(pm) != null;
+        completeAppt = (Button) v.findViewById(R.id.complete_appt_btn);
 
-      //completeAppt.setEnabled(canTakePhoto);
-      completeAppt.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-              /** CREATE NEW CUT, TAKE PICTURE AND ADD TO DB
-               *    BASICALLY MOVE THE "+" MENU OPTION TO THIS BUTTON **/
-              Log.d("Photos", "onClick: Enter ");
+        //Image Capture Intent
+        final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-              //CREATE THE CUT
-              Cuts newCut = new Cuts(apptId);
-              Log.d("PHOTO", "newCut UUID: " + newCut.getmId().toString());
-              Shop.get(getActivity()).addCut(newCut);
+        completeAppt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /** CREATE NEW CUT, TAKE PICTURE AND ADD TO DB
+                 *    BASICALLY MOVE THE "+" MENU OPTION TO THIS BUTTON **/
+                Log.d("Photos", "onClick: Enter ");
 
-              //TAKE PICTURE
+                //CREATE THE CUT
+                Cuts newCut = new Cuts(apptId);
+                Log.d("PHOTO", "newCut UUID: " + newCut.getmId().toString());
 
-              mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(newCut);
-              Log.d("PHOTO", "Photo File: " + mCutPhotoFile.toString());
+                //ADD ALL THE DETAILS
+                newCut.setCutDetails(Shop.get(getActivity()).getAppt(apptId).getApptDetails());
+                newCut.setCutType(Shop.get(getActivity()).getAppt(apptId).getCutType());
+                newCut.setCompletedDate(new Date());
+                Shop.get(getActivity()).addCut(newCut);
 
-              Uri uri = FileProvider.getUriForFile(getActivity(),
-                      "com.main.theshop.fileprovider",
-                      mCutPhotoFile);
+                //TAKE PICTURE
 
-              captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(newCut);
+                Log.d("PHOTO", "Photo File: " + mCutPhotoFile.toString());
 
-              List<ResolveInfo> cameraActivities =
-                      getActivity().getPackageManager().queryIntentActivities(
-                              captureImage, PackageManager.MATCH_DEFAULT_ONLY);
+                Uri uri = FileProvider.getUriForFile(getActivity(),
+                          "com.main.theshop.fileprovider",
+                          mCutPhotoFile);
 
-              for(ResolveInfo activity : cameraActivities) {
-                  getActivity().grantUriPermission(activity.activityInfo.packageName,
-                          uri,
-                          Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-              }
+                captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 
-              startActivityForResult(captureImage, REQUEST_PHOTO);
+                List<ResolveInfo> cameraActivities =
+                          getActivity().getPackageManager().queryIntentActivities(
+                                  captureImage, PackageManager.MATCH_DEFAULT_ONLY);
 
+                for(ResolveInfo activity : cameraActivities) {
+                    getActivity().grantUriPermission(activity.activityInfo.packageName,
+                              uri,
+                              Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                }
 
-
-
-              //DELETE THE APPT
-              Shop.get(getActivity()).deleteAppt(apptId);
-              sendResult(Activity.RESULT_OK, apptId);
-              getDialog().dismiss();
+                startActivityForResult(captureImage, REQUEST_PHOTO);
 
 
-          }
-      });
+                /**   ADD A WAY TO ADD CUT DETAILS AFTER PHOTO IS TAKEN **/
 
-      cancelAppt = (Button) v.findViewById(R.id.cancel_appt_btn);
-      cancelAppt.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-              /** DELETE APPOINTMENT FROM DATABASE **/
-              Shop.get(getActivity()).deleteAppt(apptId);
 
-              //USED TO
-              sendResult(Activity.RESULT_OK, apptId);
-              getDialog().dismiss();
-          }
-      });
+                //DELETE THE APPT
+                Shop.get(getActivity()).deleteAppt(apptId);
+                sendResult(Activity.RESULT_OK, apptId);
+                getDialog().dismiss();
+
+                Log.d("Appointment Dialog", "Appointment " + apptId + " completed.");
+
+            }
+        });
+
+        cancelAppt = (Button) v.findViewById(R.id.cancel_appt_btn);
+        cancelAppt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /** DELETE APPOINTMENT FROM DATABASE **/
+                Shop.get(getActivity()).deleteAppt(apptId);
+
+                //USED TO
+                sendResult(Activity.RESULT_OK, apptId);
+                getDialog().dismiss();
+            }
+        });
 
         return new AlertDialog.Builder(getActivity())
-                .setView(v)
-                .setTitle("Appointment")
-                .setPositiveButton("Ok",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                    .setView(v)
+                    .setTitle("Appointment")
+                    .setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
 
-                                sendResult(Activity.RESULT_OK, apptId);
-                            }
-                        })
-                .create();
+                                    sendResult(Activity.RESULT_OK, apptId);
+                                }
+                            })
+                    .create();
     }
 
 

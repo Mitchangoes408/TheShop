@@ -8,4 +8,13 @@
     <string name="datepicker_text">Pick appointment date</string>
     <string name="cancel_appt">Cancel Appointment</string>
     <string name="complete_appt">Complete Appointment</string>
+    <string name="cut_description">Cut Description</string>
+    <string name="cut_image">Cut image</string>
+    <string name="fav_description">Hold Cut image to set as favorite...</string>
+    <string name="fav_image">Favorited Cut Image</string>
+    <string name="appointment_hint">Additional appointment details...\ni.e. High fade, Comb over, etc.</string>
+    <string name="cut_styles_menu">Cut Styles</string>
+    <string name="appointment_type">Appointment type:</string>
+    <string name="barber">Barber</string>
+    <string name="client">Client</string>
 </resources>

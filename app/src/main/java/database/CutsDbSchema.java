@@ -8,8 +8,11 @@ public class CutsDbSchema {
         //contains the final class that defines the colums
         public static final class Cols {
             public static final String UUID = "uuid";
-            public static final String TITLE = "title";
-            public static final String DATE = "date";
+            public static final String DETAILS = "details";
+            public static final String DATE = "date_completed";
+            public static final String FAVORITED = "favorite";
+            public static final String TYPE = "type";
+            public static final String ACCT_ID = "acct_id";
         }
     }
 }

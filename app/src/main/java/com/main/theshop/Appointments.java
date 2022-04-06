@@ -5,11 +5,10 @@ import java.util.UUID;
 
 public class Appointments {
     private String cutType;
-    private String title;
     private Date scheduledDate;
-    private Boolean isPaid;
-    private Boolean isComplete;
+    private String apptDetails;
     private UUID apptUUID;
+    private UUID userId;
 
     public Appointments() {
 
@@ -40,32 +39,23 @@ public class Appointments {
         this.scheduledDate = scheduledDate;
     }
 
-    public Boolean getComplete() {
-        return isComplete;
-    }
-
-    public void setComplete(Boolean complete) {
-        isComplete = complete;
-    }
-
-    public Boolean getPaid() {
-        return isPaid;
-    }
-
-    public void setPaid(Boolean paid) {
-        isPaid = paid;
-    }
-
     public UUID getApptUUID() {
         return apptUUID;
     }
 
-    public String getTitle() {
-        return title;
+    public String getApptDetails() {
+        return apptDetails;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setApptDetails(String apptDetails) {
+        this.apptDetails = apptDetails;
     }
 
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
 }

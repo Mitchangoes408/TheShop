@@ -16,6 +16,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/** DATE PICKER NOTES
+ *      ADD TIME PICKER
+ */
+
 public class DatePickerFragment extends DialogFragment {
     public static final String EXTRA_DATE = "com.main.theshop.date";
     private static final String ARG_DATE = "date";

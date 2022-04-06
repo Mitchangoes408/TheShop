@@ -10,13 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheShop">
 
-
-        <activity android:name=".UserProfileActivity">
+        <!-- android:name=".UserProfileActivity" -->
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".UserProfileActivity"
+            android:parentActivityName=".LoginActivity" />
 
         <activity android:name=".CutPagerActivity"
             android:parentActivityName=".UserProfileActivity" />
