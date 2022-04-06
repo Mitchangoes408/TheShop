@@ -218,6 +218,11 @@ public class UserProfile extends Fragment {
 
                 return true;
 
+            case R.id.sign_out:
+                getActivity().finish();
+
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

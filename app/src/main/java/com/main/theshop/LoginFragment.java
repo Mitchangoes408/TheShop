@@ -81,6 +81,9 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        /** LOGIN NOTES
+         *      DISPLAY ERROR DIALOG/TOAST IF CREDENTIALS DONT MATCH
+         * **/
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,11 +105,15 @@ public class LoginFragment extends Fragment {
                     startActivity(intent);
 
                 }
-                /** DISPLAY ERROR DIALOG/TOAST IF CREDENTIALS DONT MATCH **/
+
 
             }
         });
 
+        /** REGISTRATION NOTES
+         *      ADD A CHECK FOR DUPLICATES
+         *      MAYBE CHANGE RIGISTRATION TO BE AN ACTIVITY FOR A RESULT
+         * **/
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +121,7 @@ public class LoginFragment extends Fragment {
                 //
                 // create user
                 ////pop up form for: USERNAME, PASSWORD, NAME, PHONE, EMAIL
+
 
                 RegistrationFragment registrationFragment = RegistrationFragment.newInstance();
                 FragmentManager fragmentManager = getFragmentManager();
