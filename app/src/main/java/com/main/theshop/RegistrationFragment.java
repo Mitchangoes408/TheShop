@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -163,13 +164,20 @@ public class RegistrationFragment extends Fragment {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user = new User(username, password, fullName, email, phone, acctType);
-                Shop.get(getActivity()).addUser(user);
-                Log.d("RegistrationFragment", "onSubmit: currUserId = " + user.getId().toString());
-                Shop.get(getActivity()).setCurrUser(user.getId());
+                /** CHECK FOR DUPLICATES **/
+                if(Shop.get(getActivity()).checkUser(username)) {
+                    Toast errorToast = Toast.makeText(getContext(), "Username already used.", Toast.LENGTH_LONG);
+                    errorToast.show();
+                }
+                else {
+                    user = new User(username, password, fullName, email, phone, acctType);
+                    Shop.get(getActivity()).addUser(user);
+                    Log.d("RegistrationFragment", "onSubmit: currUserId = " + user.getId().toString());
+                    Shop.get(getActivity()).setCurrUser(user.getId());
 
-                Intent intent = new Intent(getActivity(), UserProfileActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

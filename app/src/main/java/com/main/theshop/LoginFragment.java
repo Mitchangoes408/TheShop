@@ -95,6 +95,8 @@ public class LoginFragment extends Fragment {
                  *  FIGURE OUT A WAY TO PASS THAT OR SET IT FOR THE HOMESCREEN
                  */
                 User user = Shop.get(getActivity()).getUser(usernameText, passwordText);
+                username.getText().clear();
+                password.getText().clear();
 
                 if(user != null) {
                     Intent intent = new Intent(getContext(),

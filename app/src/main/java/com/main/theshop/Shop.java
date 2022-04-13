@@ -234,18 +234,18 @@ public class Shop {
         }
     }
 
-    public User getUser(UUID userId) {
+    public boolean checkUser(String userName) {
         LoginCursorWrapper cursor = queryUsers(
-                LoginDbSchema.LoginTable.Cols.UUID + " = ?",
-                new String[] { userId.toString() }
+                LoginDbSchema.LoginTable.Cols.USERNAME + " = ?",
+                new String[] { userName }
         );
 
         try {
             if(cursor.getCount() == 0)
-                return null;
+                return false;
 
             cursor.moveToFirst();
-            return cursor.getUser();
+            return true;
         }
         finally {
             cursor.close();
