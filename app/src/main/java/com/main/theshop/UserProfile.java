@@ -204,6 +204,7 @@ public class UserProfile extends Fragment {
 
             case R.id.edit_profile:
 
+
                 return true;
 
             case R.id.new_appointment:

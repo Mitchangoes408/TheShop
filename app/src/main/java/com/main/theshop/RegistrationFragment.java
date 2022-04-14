@@ -170,9 +170,11 @@ public class RegistrationFragment extends Fragment {
                     errorToast.show();
                 }
                 else {
+                    /** ADD USER TO DB, THEN JUMP INTO LOG IN **/
                     user = new User(username, password, fullName, email, phone, acctType);
                     Shop.get(getActivity()).addUser(user);
                     Log.d("RegistrationFragment", "onSubmit: currUserId = " + user.getId().toString());
+
                     Shop.get(getActivity()).setCurrUser(user.getId());
 
                     Intent intent = new Intent(getActivity(), UserProfileActivity.class);
@@ -184,8 +186,6 @@ public class RegistrationFragment extends Fragment {
 
         return v;
     }
-
-
 
     public static RegistrationFragment newInstance() {
         Bundle args = new Bundle();

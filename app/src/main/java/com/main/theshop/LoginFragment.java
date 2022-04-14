@@ -113,7 +113,7 @@ public class LoginFragment extends Fragment {
         });
 
         /** REGISTRATION NOTES
-         *      ADD A CHECK FOR DUPLICATES
+         *      ADD A CHECK FOR DUPLICATES  (Done)
          *      MAYBE CHANGE RIGISTRATION TO BE AN ACTIVITY FOR A RESULT
          * **/
         registerButton.setOnClickListener(new View.OnClickListener() {
