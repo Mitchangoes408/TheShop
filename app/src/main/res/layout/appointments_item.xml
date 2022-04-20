@@ -8,6 +8,6 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:gravity="center"
-        android:text="No scheduled appointments." />
+        android:text="@string/no_scheduled_appointments" />
 
 </LinearLayout>

@@ -15,21 +15,21 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:id="@+id/username_register"
-            android:hint="Username" />
+            android:hint="@string/username" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:id="@+id/password_register"
-            android:hint="Password" />
+            android:hint="@string/password" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:id="@+id/fullname_register"
-            android:hint="Name" />
+            android:hint="@string/name" />
 
         <EditText
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:padding="10dp"
             android:id="@+id/email_register"
             android:inputType="textEmailAddress"
-            android:hint="Email" />
+            android:hint="@string/email" />
 
         <EditText
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             android:padding="10dp"
             android:id="@+id/phone_register"
             android:inputType="phone"
-            android:hint="Phone number" />
+            android:hint="@string/phone_number" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -53,13 +53,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="Barber Account?" />
+                android:text="@string/barber_account" />
 
             <Switch
                 android:id="@+id/account_type_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp" />
+                android:padding="10dp"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 
         </LinearLayout>
@@ -71,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="10dp"
-            android:text="Submit" />
+            android:text="@string/submit" />
 
     </LinearLayout>
 

@@ -16,7 +16,7 @@
             android:id="@+id/appt_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Appointment type: " />
+            android:text="@string/appointment_type" />
 
         <Spinner
             android:id="@+id/cut_type_menu"
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Schedule appointment" />
+        android:text="@string/schedule_appointment" />
     </LinearLayout>
 
 

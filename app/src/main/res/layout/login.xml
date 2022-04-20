@@ -18,41 +18,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="The Shop" />
+            android:text="@string/app_name" />
 
         <EditText
             android:id="@+id/username_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:hint="@string/username"
             android:lines="1"/>
 
         <EditText
             android:id="@+id/password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
-            android:lines="1"/>
+            android:lines="1" />
 
         <Button
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login" />
+            android:text="@string/login" />
 
         <Button
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/register_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up" />
+            android:text="@string/sign_up" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -64,7 +64,8 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:padding="10dp"
-                android:text="Forgot Username?" />
+                android:text="@string/forgot_username"
+                android:focusable="true" />
 
             <TextView
                 android:id="@+id/password_reset"
@@ -72,7 +73,8 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:padding="10dp"
-                android:text="Forgot Password?" />
+                android:text="@string/forgot_password"
+                android:focusable="true" />
 
         </LinearLayout>
 
