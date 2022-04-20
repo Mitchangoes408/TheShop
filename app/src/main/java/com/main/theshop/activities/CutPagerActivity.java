@@ -1,4 +1,4 @@
-package com.main.theshop;
+package com.main.theshop.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import com.main.theshop.fragments.CutFragment;
+import com.main.theshop.models.Cuts;
+import com.main.theshop.R;
+import com.main.theshop.models.Shop;
 
 import java.util.List;
 import java.util.UUID;

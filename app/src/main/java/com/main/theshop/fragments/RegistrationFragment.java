@@ -1,7 +1,5 @@
-package com.main.theshop;
+package com.main.theshop.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,15 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import java.util.UUID;
+import com.main.theshop.R;
+import com.main.theshop.models.Shop;
+import com.main.theshop.models.User;
+import com.main.theshop.activities.UserProfileActivity;
 
 public class RegistrationFragment extends Fragment {
     private EditText usernameInput,

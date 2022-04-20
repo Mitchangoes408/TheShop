@@ -1,9 +1,8 @@
-package com.main.theshop;
+package com.main.theshop.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -21,8 +20,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.main.theshop.models.Cuts;
+import com.main.theshop.utils.PictureUtils;
+import com.main.theshop.R;
+import com.main.theshop.models.Shop;
+
 import java.io.File;
-import java.util.Date;
 import java.util.UUID;
 
 /** CUT FRAGMENT NOTES

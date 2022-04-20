@@ -1,4 +1,4 @@
-package com.main.theshop;
+package com.main.theshop.models;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -30,11 +30,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.main.theshop.R;
+import com.main.theshop.activities.ApptPagerActivity;
+import com.main.theshop.activities.CutPagerActivity;
+import com.main.theshop.fragments.ApptDialogFragment;
+import com.main.theshop.utils.PictureUtils;
+
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 public class UserProfile extends Fragment {
     // FRAGMENT

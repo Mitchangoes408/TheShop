@@ -1,4 +1,4 @@
-package com.main.theshop;
+package com.main.theshop.models;
 
 import java.util.UUID;
 

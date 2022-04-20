@@ -1,4 +1,4 @@
-package com.main.theshop;
+package com.main.theshop.utils;
 
 import android.app.Activity;
 import android.graphics.Bitmap;

@@ -1,4 +1,4 @@
-package com.main.theshop;
+package com.main.theshop.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.DatePicker;
 
 import androidx.fragment.app.DialogFragment;
+
+import com.main.theshop.R;
 
 import java.util.Calendar;
 import java.util.Date;

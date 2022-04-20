@@ -1,12 +1,10 @@
-package com.main.theshop;
-
-import android.content.Intent;
+package com.main.theshop.activities;
 
 import androidx.fragment.app.Fragment;
 
-import java.util.UUID;
+import com.main.theshop.models.UserProfile;
 
-public class UserProfileActivity extends SingleFragmentActivity{
+public class UserProfileActivity extends SingleFragmentActivity {
     //private static final String EXTRA_USER_ID = "userId";
 
     @Override

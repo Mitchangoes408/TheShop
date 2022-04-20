@@ -1,4 +1,4 @@
-package com.main.theshop;
+package com.main.theshop.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.main.theshop.R;
+import com.main.theshop.models.Shop;
+import com.main.theshop.models.User;
+import com.main.theshop.activities.UserProfileActivity;
 
 public class LoginFragment extends Fragment {
     private Button loginButton, cancelButton, registerButton;

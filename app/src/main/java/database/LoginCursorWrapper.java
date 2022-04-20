@@ -3,7 +3,7 @@ package database;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
-import com.main.theshop.User;
+import com.main.theshop.models.User;
 
 import java.util.UUID;
 

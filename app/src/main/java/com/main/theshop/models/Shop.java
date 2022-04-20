@@ -1,9 +1,13 @@
-package com.main.theshop;
+package com.main.theshop.models;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.main.theshop.utils.ApptBaseHelper;
+import com.main.theshop.utils.CutBaseHelper;
+import com.main.theshop.utils.UserBaseHelper;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.main.theshop;
+package com.main.theshop.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,6 +18,11 @@ import android.widget.TextView;
 
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
+
+import com.main.theshop.models.Appointments;
+import com.main.theshop.models.Cuts;
+import com.main.theshop.R;
+import com.main.theshop.models.Shop;
 
 import java.io.File;
 import java.util.Date;

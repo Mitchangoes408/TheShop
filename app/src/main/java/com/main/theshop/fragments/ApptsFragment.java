@@ -1,4 +1,4 @@
-package com.main.theshop;
+package com.main.theshop.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,14 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.main.theshop.models.Appointments;
+import com.main.theshop.R;
+import com.main.theshop.models.Shop;
 
 import java.util.Date;
 import java.util.UUID;

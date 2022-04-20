@@ -3,7 +3,7 @@ package database;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
-import com.main.theshop.Appointments;
+import com.main.theshop.models.Appointments;
 
 import java.util.Date;
 import java.util.UUID;

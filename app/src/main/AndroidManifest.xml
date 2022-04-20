@@ -11,22 +11,22 @@
         android:theme="@style/Theme.TheShop">
 
         <!-- android:name=".UserProfileActivity" -->
-        <activity android:name=".LoginActivity">
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".UserProfileActivity"
-            android:parentActivityName=".LoginActivity" />
+        <activity android:name=".activities.UserProfileActivity"
+            android:parentActivityName=".activities.LoginActivity" />
 
-        <activity android:name=".CutPagerActivity"
-            android:parentActivityName=".UserProfileActivity" />
+        <activity android:name=".activities.CutPagerActivity"
+            android:parentActivityName=".activities.UserProfileActivity" />
 
 
-        <activity android:name=".ApptPagerActivity"
-            android:parentActivityName=".UserProfileActivity" />
+        <activity android:name=".activities.ApptPagerActivity"
+            android:parentActivityName=".activities.UserProfileActivity" />
 
 
         <provider
