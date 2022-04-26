@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,8 @@ public class UserProfile extends Fragment {
     private CutsAdapter mAdapter;
     private ApptAdapter mApptAdapter;
     private Cuts currFav;
+    private LinearLayout apptLayout;
+    private LinearLayout favLayout;
 
     private File mCutPhotoFile;
 
@@ -74,9 +77,22 @@ public class UserProfile extends Fragment {
         View view = inflater.inflate(
                 R.layout.profile, container, false);
 
-
+        favLayout = (LinearLayout) view.findViewById(R.id.favorited_layout);
+        apptLayout = (LinearLayout) view.findViewById(R.id.appt_layout);
         mFavDetails = (TextView) view.findViewById(R.id.profile_text);
         mFavImage = (ImageView)view.findViewById(R.id.profile_image);
+        mApptRecycler = (RecyclerView)view.findViewById(R.id.appt_recycler);
+        mCutsRecycler = (RecyclerView)view.findViewById(R.id.cuts_recycler_view);
+
+
+        if(Shop.get(getActivity()).getCurrAcctType().equals("Barber")) {
+            /*  USING ONE SINGLE LAYOUT
+            favLayout.setVisibility(view.GONE);
+            mCutsRecycler.setVisibility(view.GONE);
+
+            mApptRecycler.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
+             */
+        }
 
         //SCREEN MATH FOR PROFILE IMAGE
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -106,17 +122,16 @@ public class UserProfile extends Fragment {
 
         }
 
-
-        mApptRecycler = (RecyclerView)view.findViewById(R.id.appt_recycler);
+        /** APPT RECYCLER **/
         mApptRecycler.setLayoutManager(
                 new LinearLayoutManager(getActivity()));
 
-        mCutsRecycler = (RecyclerView)view.findViewById(R.id.cuts_recycler_view);
-
+        /** CUTS RECYCLER **/
         mCutsRecycler.setLayoutManager(
                 new GridLayoutManager(getActivity(), 3));
         //ATTEMPT FOR ONLONGCLICK
         registerForContextMenu(mCutsRecycler);
+
 
         updateUI();
 
@@ -158,6 +173,7 @@ public class UserProfile extends Fragment {
             updateUI();
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -223,7 +239,6 @@ public class UserProfile extends Fragment {
                 return true;
 
             case R.id.sign_out:
-                Shop.get(getActivity()).setCurrUser(null);
                 getActivity().finish();
 
                 return true;
@@ -233,7 +248,7 @@ public class UserProfile extends Fragment {
         }
     }
 
-    /** LONG PRESS ON CUT ITEM ACTIONS **/
+    /** LONG PRESS MENU ACTIONS **/
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         Shop theShop = Shop.get(getActivity());

@@ -7,38 +7,45 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/overall_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/favorited_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="visible" >
+            android:visibility="visible">
 
             <!-- FIND A DEFAULT SHOP IMAGE ON NEW STARTUP -->
             <ImageView
                 android:id="@+id/profile_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="#696969"
+                android:contentDescription="@string/fav_image"
                 android:minWidth="90dp"
                 android:minHeight="125dp"
-                android:background="#696969"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/fav_image" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/profile_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:padding="10dp"
                 android:text="@string/fav_description"
-                android:padding="10dp" />
+                android:visibility="visible" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/appt_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -53,7 +60,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/appt_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -61,8 +68,8 @@
             android:id="@+id/cuts_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="visible" />
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -165,10 +165,18 @@ public class Shop {
 
     public List<Appointments> getAppts() {
         List<Appointments> appointments = new ArrayList<>();
-
-        ApptCursorWrapper cursor = queryAppts(
-                ApptDbSchema.ApptTable.Cols.USER_ID + " = ?",
-                new String[] { currUserId.toString() } );
+        ApptCursorWrapper cursor;
+        /** RETURN EVERY APPOINTMENT IN DB FOR BARBER **/
+        if(acctType.equals("Barber")) {
+            cursor = queryAppts(
+                    null,
+                    null
+            );
+        } else {
+            cursor = queryAppts(
+                    ApptDbSchema.ApptTable.Cols.USER_ID + " = ?",
+                    new String[]{currUserId.toString()});
+        }
 
         try {
             cursor.moveToFirst();
