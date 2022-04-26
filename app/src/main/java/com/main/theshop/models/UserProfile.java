@@ -46,9 +46,6 @@ public class UserProfile extends Fragment {
     private static final int REQUEST_DIALOG = 0;
     private static final int REQUEST_PHOTO = 1;
 
-    private static final int TRUE = 1;
-    private static final int FALSE = 0;
-
     private static final String DIALOG_DATE = "DialogDate";
     private static final String DIALOG_APPT = "DialogAppt";
     private static final String EXTRA_DIALOG = "com.main.theshop.dialog";
@@ -76,6 +73,7 @@ public class UserProfile extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(
                 R.layout.profile, container, false);
+
 
         mFavDetails = (TextView) view.findViewById(R.id.profile_text);
         mFavImage = (ImageView)view.findViewById(R.id.profile_image);
@@ -225,6 +223,7 @@ public class UserProfile extends Fragment {
                 return true;
 
             case R.id.sign_out:
+                Shop.get(getActivity()).setCurrUser(null);
                 getActivity().finish();
 
                 return true;

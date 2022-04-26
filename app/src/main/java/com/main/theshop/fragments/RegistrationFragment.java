@@ -35,7 +35,7 @@ public class RegistrationFragment extends Fragment {
             fullName,
             email,
             phone,
-            acctType;
+            isBarber;
 
     private User user;
 
@@ -158,7 +158,6 @@ public class RegistrationFragment extends Fragment {
         accountType = (Switch) v.findViewById(R.id.account_type_switch);
 
 
-
         submitBtn = (Button) v.findViewById(R.id.submit_btn);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,11 +169,15 @@ public class RegistrationFragment extends Fragment {
                 }
                 else {
                     /** ADD USER TO DB, THEN JUMP INTO LOG IN **/
-                    user = new User(username, password, fullName, email, phone, acctType);
+                    if(accountType.isChecked())
+                        isBarber = accountType.getTextOn().toString();
+                    else
+                        isBarber = accountType.getTextOff().toString();
+                    user = new User(username, password, fullName, email, phone, isBarber);
                     Shop.get(getActivity()).addUser(user);
                     Log.d("RegistrationFragment", "onSubmit: currUserId = " + user.getId().toString());
 
-                    Shop.get(getActivity()).setCurrUser(user.getId());
+                    Shop.get(getActivity()).setCurrUser(user);
 
                     Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                     startActivity(intent);

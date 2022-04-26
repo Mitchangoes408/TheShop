@@ -26,6 +26,7 @@ public class Shop {
     private Context mContext;
 
     private static UUID currUserId;
+    private static String acctType;
 
     private SQLiteDatabase mCutsDatabase;
     private SQLiteDatabase mApptDatabase;
@@ -274,12 +275,17 @@ public class Shop {
         }
     }
 
-    public void setCurrUser(UUID userId) {
-        currUserId = userId;
+    public void setCurrUser(User user) {
+        this.currUserId = user.getId();
+        this.acctType = user.getAcctType();
     }
 
     public UUID getCurrUserId() {
         return currUserId;
+    }
+
+    public String getCurrAcctType() {
+        return acctType;
     }
 
 

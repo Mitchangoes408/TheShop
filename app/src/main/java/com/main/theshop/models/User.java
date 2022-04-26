@@ -71,7 +71,7 @@ public class User {
         return acctType;
     }
 
-    public void setAcctType(String acctType) {
-        this.acctType = acctType;
+    public void setAcctType(String type) {
+        this.acctType = type;
     }
 }

@@ -33,4 +33,5 @@
     <string name="phone_number">Phone number</string>
     <string name="barber_account">Barber Account?</string>
     <string name="submit">Submit</string>
+    <string name="upcoming_appointments">Upcoming appointments:</string>
 </resources>
