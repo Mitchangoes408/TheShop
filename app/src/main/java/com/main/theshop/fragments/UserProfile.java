@@ -1,4 +1,4 @@
-package com.main.theshop.models;
+package com.main.theshop.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -34,7 +34,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.main.theshop.R;
 import com.main.theshop.activities.ApptPagerActivity;
 import com.main.theshop.activities.CutPagerActivity;
-import com.main.theshop.fragments.ApptDialogFragment;
+import com.main.theshop.models.Appointments;
+import com.main.theshop.models.Cuts;
+import com.main.theshop.models.Shop;
 import com.main.theshop.utils.PictureUtils;
 
 import java.io.File;
@@ -74,6 +76,18 @@ public class UserProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        if(Shop.get(getActivity()).getCurrAcctType().equals("Barber")) {
+            /*  USING ONE SINGLE LAYOUT
+            favLayout.setVisibility(view.GONE);
+            mCutsRecycler.setVisibility(view.GONE);
+
+            mApptRecycler.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
+             */
+        }
+
+
         View view = inflater.inflate(
                 R.layout.profile, container, false);
 
@@ -85,14 +99,7 @@ public class UserProfile extends Fragment {
         mCutsRecycler = (RecyclerView)view.findViewById(R.id.cuts_recycler_view);
 
 
-        if(Shop.get(getActivity()).getCurrAcctType().equals("Barber")) {
-            /*  USING ONE SINGLE LAYOUT
-            favLayout.setVisibility(view.GONE);
-            mCutsRecycler.setVisibility(view.GONE);
 
-            mApptRecycler.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
-             */
-        }
 
         //SCREEN MATH FOR PROFILE IMAGE
         DisplayMetrics displayMetrics = new DisplayMetrics();
