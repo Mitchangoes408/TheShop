@@ -106,10 +106,11 @@
 - [ ] Get "Forgot Username/Password" buttons working
 - [x] Long press image to delete
 - [ ] Properly track scheduled appointments
+\
 *Once Barber Homepage is done..*
   - [ ] Bring online with client server communications
   - [ ] Connect to Square for payment gateway
-  - [ ]connect to MySQL for database storage on server side
+  - [ ] Connect to MySQL for database storage on server side
 
 **Other Notes**
 * Thoughts: (Barber side functionality)
