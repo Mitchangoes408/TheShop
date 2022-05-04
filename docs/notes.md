@@ -19,7 +19,7 @@
 
 **Thoughts on To-Dos**
 [ ] Add a way to add appointments
-[] Way to prioritize image for profile(whether using most recent image or favorite cut)
+[ ] Way to prioritize image for profile(whether using most recent image or favorite cut)
 [ ] ***MAYBE*** RecyclerView inside RecyclerView in case a cut has several images for angles/profiles
 [ ] Get images to work for profile RecyclerView
   - Set to default image is cut is made witout taking image
@@ -32,7 +32,7 @@
 
 ### 3/10
 **Today's Goals**
-[X] Adding appointments and displaying on Appointments view
+[x] Adding appointments and displaying on Appointments view
 [x] Add RecyclerView to UserProfile
 [x] Connect "New Appointment" menu option to bring up way to schedule appointment
 
@@ -49,7 +49,7 @@
   - Displays default date: Wed Dec 31 1969
   - Does not automatically add new appt... Needs a refresh
 
-**Today's Goals***
+**Today's Goals**
 [ ] Properly set and display appointments' date/time
 [ ] Automatically add and refresh Appt RecyclerView
 [ ] Get camera widget working
