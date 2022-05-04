@@ -50,9 +50,9 @@
   - Does not automatically add new appt... Needs a refresh
 
 **Today's Goals**
-- [ ] Properly set and display appointments' date/time
-- [ ] Automatically add and refresh Appt RecyclerView
-- [ ] Get camera widget working
+- [x] Properly set and display appointments' date/time
+- [x] Automatically add and refresh Appt RecyclerView
+- [x] Get camera widget working
 
 ---
 
@@ -107,14 +107,14 @@
 - [x] Long press image to delete
 - [ ] Properly track scheduled appointments
 *Once Barber Homepage is done..*
-  - [ ] bring online with client server communications
+  - [ ] Bring online with client server communications
   - [ ] Connect to Square for payment gateway
-  - [ ]connect to MySQL for database storage on server side 
+  - [ ]connect to MySQL for database storage on server side
 
 **Other Notes**
 * Thoughts: (Barber side functionality)
-  - [ ] Barber account only needs to display appointments
-  - [ ] Main priority is a payment system figured out
+  -  Barber account only needs to display appointments
+  -  Main priority is a payment system figured out
 
 **End of Day Progress**
 - Users account type is now entered into DB as "Barber" or "Client"
