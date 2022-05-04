@@ -1,5 +1,6 @@
-[The Shop](https://github.com/Mitchangoes408/TheShop) is an Android mobile program that aims to become the central hub for barbers and their clientele. 
+[The Shop](https://github.com/Mitchangoes408/TheShop) is an Android mobile program that aims to become the central hub for barbers and their clientele.
 
+## Functionality
 Written in Java, the main functions are to act as an image repository for the user's cut history and scheduling appointments with the barber. The two sides of the program would be for Clients and Barbers.
 
 Client side:
@@ -11,4 +12,3 @@ Barber side:
 - Handle payments with Clients
 
 ***
-
