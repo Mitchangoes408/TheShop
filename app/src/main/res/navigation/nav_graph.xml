@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.main.theshop.fragments.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_userProfile"
+            app:destination="@id/userProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.main.theshop.fragments.RegistrationFragment"
+        android:label="RegistrationFragment" >
+        <action
+            android:id="@+id/action_registrationFragment_to_userProfile"
+            app:destination="@id/userProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProfile"
+        android:name="com.main.theshop.fragments.UserProfile"
+        android:label="UserProfile" >
+        <action
+            android:id="@+id/action_userProfile_to_apptsFragment"
+            app:destination="@id/navigation6" />
+        <action
+            android:id="@+id/action_userProfile_to_apptDialogFragment"
+            app:destination="@id/apptDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/apptDialogFragment"
+        android:name="com.main.theshop.fragments.ApptDialogFragment"
+        android:label="ApptDialogFragment" />
+    <navigation android:id="@+id/navigation6"
+        app:startDestination="@id/apptsFragment">
+        <fragment
+            android:id="@+id/apptsFragment"
+            android:name="com.main.theshop.fragments.ApptsFragment"
+            android:label="ApptsFragment">
+            <action
+                android:id="@+id/action_apptsFragment_to_apptDialogFragment2"
+                app:destination="@id/apptDialogFragment2" />
+            <action
+                android:id="@+id/action_apptsFragment_to_cutDialogFragment2"
+                app:destination="@id/cutDialogFragment2" />
+        </fragment>
+        <dialog
+            android:id="@+id/apptDialogFragment2"
+            android:name="com.main.theshop.fragments.ApptDialogFragment"
+            android:label="ApptDialogFragment" />
+        <dialog
+            android:id="@+id/cutDialogFragment2"
+            android:name="com.main.theshop.fragments.CutDialogFragment"
+            android:label="CutDialogFragment" />
+    </navigation>
+</navigation>
