@@ -209,7 +209,7 @@ public class UserProfile extends Fragment {
 
                 mCutPhotoFile = Shop.get(getActivity()).getPhotoFile(newCut);
 
-                Uri uri = FileProvider.getUriForFile(Objects.requireNonNull(getActivity()),
+                Uri uri = FileProvider.getUriForFile(getActivity(),
                         "com.main.theshop.fileprovider",
                         mCutPhotoFile);
 
@@ -229,7 +229,9 @@ public class UserProfile extends Fragment {
                 return true;
 
             case R.id.edit_profile:
-
+                /**
+                 *  EDIT PROFILE SETTINGS AND INFORMATION
+                 */
 
                 return true;
 
@@ -310,7 +312,9 @@ public class UserProfile extends Fragment {
 
     /** CUTS HELPER CLASSES FOR RECYCLERVIEW  **/
     /** NOTES FOR CUTS RECYCLER
-     *      EVERNTUALLY FIND A WAY TO ADD A GIF OF THE PROFILE
+     *      EVERNTUALLY FIND A WAY TO ADD:
+     *          - GIF
+     *          - GALLERY(PHOTO SET)
      */
 
     private class CutsHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {

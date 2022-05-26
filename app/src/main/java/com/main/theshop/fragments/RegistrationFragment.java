@@ -154,7 +154,9 @@ public class RegistrationFragment extends Fragment {
             }
         });
 
-        /** MAYBE CHANGE SWITCH TO ANOTHER USER SELECTION TYPE **/
+        /** MAYBE CHANGE SWITCH TO ANOTHER USER SELECTION TYPE
+         *      ONE THATS MORE INTUITIVE
+        **/
         accountType = (Switch) v.findViewById(R.id.account_type_switch);
 
 
@@ -168,7 +170,9 @@ public class RegistrationFragment extends Fragment {
                     errorToast.show();
                 }
                 else {
-                    /** ADD USER TO DB, THEN JUMP INTO LOG IN **/
+                    /** ADD USER TO DB, THEN JUMP INTO LOG IN
+                     *      MAYBE GO BACK TO HOME SCREEN BEFORE LOGING IN
+                    **/
                     if(accountType.isChecked())
                         isBarber = accountType.getTextOn().toString();
                     else

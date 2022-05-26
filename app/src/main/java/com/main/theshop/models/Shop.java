@@ -103,9 +103,6 @@ public class Shop {
         String uuidString = cut.getmId().toString();
         ContentValues values = getContentValues(cut);
 
-        /****
-            BEFORE LINE WAS USED BUT MIGHT BE THROWING ERRORS
-         */
         mCutsDatabase.update(
                 CutsDbSchema.CutsTable.NAME,
                 values,
