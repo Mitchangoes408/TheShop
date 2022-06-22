@@ -1,0 +1,4 @@
+package kotlin
+
+class LoginActivity {
+}

@@ -34,4 +34,10 @@
     <string name="barber_account">Barber Account?</string>
     <string name="submit">Submit</string>
     <string name="upcoming_appointments">Upcoming appointments:</string>
+
+    <string name="facebook_app_id">1022069365179944</string>
+    <string name="fb_login_protocol_scheme">fb1022069365179944</string>
+    <string name="facebook_client_token">e18efb6542da2f29cc088419d52d16c0</string>
+
+
 </resources>
